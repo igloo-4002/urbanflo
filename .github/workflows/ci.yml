@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "main"
+      - "github-actions" # dedicated branch for testing GH Actions workflow
   pull_request:
     branches:
       - "main"
