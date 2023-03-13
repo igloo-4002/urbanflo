@@ -59,14 +59,6 @@ Vite: `https://localhost:5173`
 
 NextJS: `https://localhost:3000`
 
----
-
-Below is the documentation from the template to deploy the NextJS app on Vercel
-
-## Deployment
-
-### Next.js
-
 #### Prerequisites
 
 _We do not recommend deploying a SQLite database on serverless environments since the data wouldn't be persisted. I provisioned a quick Postgresql database on [Railway](https://railway.app), but you can of course use any other database provider. Make sure the prisma schema is updated to use the correct database._
