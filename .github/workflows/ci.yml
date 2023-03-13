@@ -20,12 +20,13 @@ jobs:
   build:
     env:
       DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         node-version: [14, 16, 18, 19]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       fail-fast: false
+    runs-on: ${{ matrix.os }}
     services:
       postgres:
         image: "postgres"
@@ -79,5 +80,5 @@ jobs:
       - name: Save build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: urban-planning-app-node${{ matrix.node-version }}
+          name: urban-planning-app-node${{ matrix.node-version }}-${{ matrix.os }}
           path: dist
