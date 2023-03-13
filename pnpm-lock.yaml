@@ -150,8 +150,8 @@ importers:
 
   apps/vite:
     specifiers:
-      '@acme/api': workspace:*
-      '@acme/tailwind-config': workspace:*
+      '@acme/api': '*'
+      '@acme/tailwind-config': '*'
       '@tanstack/react-query': ^4.24.10
       '@trpc/client': ^10.14.0
       '@trpc/react-query': ^10.14.0
@@ -167,7 +167,6 @@ importers:
       typescript: ^4.9.3
       vite: ^4.1.0
     dependencies:
-      '@acme/api': link:../../packages/api
       '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.14.0_@trpc+server@10.14.0
       '@trpc/react-query': 10.14.0_ewqbv5apgvis5mngp6qivio3iy
@@ -175,6 +174,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@acme/api': link:../../packages/api
       '@acme/tailwind-config': link:../../packages/config/tailwind
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10

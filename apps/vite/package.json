@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@acme/api": "workspace:*",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
@@ -18,7 +17,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@acme/tailwind-config": "workspace:*",
+    "@acme/api": "*",
+    "@acme/tailwind-config": "*",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
