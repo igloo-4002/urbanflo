@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [14, 16, 18, 19]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     services:
       postgres:
@@ -75,3 +75,8 @@ jobs:
         run: pnpm build
         env:
           SKIP_ENV_VALIDATION: true
+      - name: Save build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: urban-planning-app-node${{ matrix.node-version }}
+          path: dist
