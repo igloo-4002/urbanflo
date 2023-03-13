@@ -9,19 +9,32 @@ on:
 
 # You can leverage Vercel Remote Caching with Turbo to speed up your builds
 # @link https://turborepo.org/docs/core-concepts/remote-caching#remote-caching-on-vercel-builds
-# env:
-#   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-#   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  POSTGRES_USER: igloo_gh_actions
+  POSTGRES_PASSWORD: igloo_gh_actions
+  POSTGRES_DB: urban_planning_app
 
 jobs:
   build:
     env:
-      DATABASE_URL: file:./db.sqlite
+      DATABASE_URL: postgresql://${{ POSTGRES_USER }}:${{ POSTGRES_PASSWORD }}@localhost:5432/${{ POSTGRES_DB }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14, 16, 18, 19]
+        node-version: [18]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    services:
+      postgres:
+        image: "postgres"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - "5432:5432"
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -35,7 +48,7 @@ jobs:
         id: pnpm-cache
         run: |
           echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-      - name: Setup pnpm cache
+      - name: Setup pnpm cachePush Prisma data
         uses: actions/cache@v3
         with:
           path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
@@ -47,7 +60,9 @@ jobs:
       # Normally, this would be done as part of the turbo pipeline - however since the Expo app doesn't depend on `@igloo/db` it doesn't care.
       # TODO: Free for all to find a better solution here.
       - name: Generate Prisma Client
-        run: pnpm turbo db:generate
+        run: pnpm db:generate
+      - name: Push the Prisma schema to the database
+        run: pnpm db:push
       - name: Build, lint and type-check
         run: pnpm turbo build lint type-check
         env:
