@@ -3,7 +3,9 @@ import { TRPCProvider } from "./utils/api";
 function App() {
   return (
     <TRPCProvider>
-      <div className="border">Hello World</div>
+      <div className="flex h-screen w-screen items-center justify-center bg-slate-300">
+        Hello World
+      </div>
     </TRPCProvider>
   );
 }

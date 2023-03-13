@@ -1,5 +1,7 @@
-/** @type {import("tailwindcss").config} */
-module.exports = {
+/** @type {import("tailwindcss").Config} */
+const config = {
+  content: ["./src/**/*.tsx"],
   presets: [require("@acme/tailwind-config")],
-  content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
 };
+
+module.exports = config;

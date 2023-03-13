@@ -31,7 +31,6 @@ importers:
       '@acme/api': '*'
       '@acme/auth': '*'
       '@acme/db': '*'
-      '@acme/tailwind-config': '*'
       '@tanstack/react-query': ^4.24.10
       '@trpc/client': ^10.14.0
       '@trpc/next': ^10.14.0
@@ -57,7 +56,6 @@ importers:
       '@acme/api': link:../../packages/api
       '@acme/auth': link:../../packages/auth
       '@acme/db': link:../../packages/db
-      '@acme/tailwind-config': link:../../packages/config/tailwind
       '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.14.0_@trpc+server@10.14.0
       '@trpc/next': 10.14.0_pen7abxfhplw6oyjl4mz6sok3y

@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
+import { useState } from "react";
 import superjson from "superjson";
 
+// this for some reason results in vite getting bundled with prisma
+// which doesn't run on frontend
 // export { type RouterInputs, type RouterOutputs } from "@acme/api";
 
 import {
