@@ -59,6 +59,4 @@ Vite: `https://localhost:5173`
 
 NextJS: `https://localhost:3000`
 
-#### Prerequisites
-
 Database URL can be found in Railway Project
