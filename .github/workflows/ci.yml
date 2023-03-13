@@ -79,5 +79,7 @@ jobs:
       - name: Save build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: urban-planning-app-node${{ matrix.node-version }}-${{ matrix.os }}
-          path: dist
+          name: urban-planning-app-node${{ matrix.node-version }}
+          path: |
+            apps/nextjs/.next
+            apps/vite/dist
