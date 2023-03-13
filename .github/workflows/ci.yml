@@ -67,9 +67,11 @@ jobs:
         run: pnpm db:generate
       - name: Push the Prisma schema to the database
         run: pnpm db:push
-      - name: Build, lint and type-check
-        run: pnpm turbo build lint type-check
+      - name: Lint and check workspaces
+        run: pnpm lint
+      - name: Type check
+        run: pnpm type-check
+      - name: Build
+        run: pnpm build
         env:
           SKIP_ENV_VALIDATION: true
-      - name: Check workspaces
-        run: pnpm manypkg check
