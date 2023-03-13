@@ -1,11 +1,13 @@
+import { useRef } from "react";
+
 import { TRPCProvider } from "./utils/api";
 
 function App() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   return (
     <TRPCProvider>
-      <div className="flex h-screen w-screen items-center justify-center bg-slate-300">
-        Hello World
-      </div>
+      <canvas ref={canvasRef} />
     </TRPCProvider>
   );
 }
