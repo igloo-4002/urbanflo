@@ -1,0 +1,30 @@
+# This is a simple docker compose file for those who don't want to use the Postgres instance on Railway, and also don't
+# want to set up Postgres manually on your machine.
+#
+# USAGE
+# Place the following to DATABASE_URL environment file: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
+# Substitute $POSTGRES_USER etc appropriately according to the environment variables in this file.
+# For example: postgresql://igloo:igloo@localhost:5432/urban_planning_app
+#
+# COMMANDS
+# up: docker-compose -f docker-compose-db.yml up
+# down: docker-compose -f docker-compose-db.yml down
+# down and delete volume: docker-compose -f docker-compose-db.yml down -v
+
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: urban_planning_app
+      POSTGRES_USER: igloo
+      POSTGRES_PASSWORD: igloo # TODO: replace with something more secure
+
+volumes:
+  db-data:
