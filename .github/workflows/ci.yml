@@ -12,13 +12,13 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  POSTGRES_USER: igloo_gh_actions
+  POSTGRES_PASSWORD: igloo_gh_actions
+  POSTGRES_DB: urban_planning_app
 
 jobs:
   build:
     env:
-      POSTGRES_USER: igloo_gh_actions
-      POSTGRES_PASSWORD: igloo_gh_actions
-      POSTGRES_DB: urban_planning_app
       DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
     runs-on: ubuntu-latest
     strategy:
@@ -33,6 +33,10 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        env:
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          POSTGRES_DB: $POSTGRES_DB
         ports:
           - "5432:5432"
     steps:
