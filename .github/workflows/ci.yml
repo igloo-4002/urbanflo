@@ -19,7 +19,7 @@ env:
 jobs:
   build:
     env:
-      DATABASE_URL: postgresql://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
+      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
     runs-on: ubuntu-latest
     strategy:
       matrix:
