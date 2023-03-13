@@ -71,8 +71,6 @@ Below is the documentation from the template to deploy the NextJS app on Vercel
 
 _We do not recommend deploying a SQLite database on serverless environments since the data wouldn't be persisted. I provisioned a quick Postgresql database on [Railway](https://railway.app), but you can of course use any other database provider. Make sure the prisma schema is updated to use the correct database._
 
-**Please note that the Next.js application with tRPC must be deployed in order for the Expo app to communicate with the server in a production environment.**
-
 #### Deploy to Vercel
 
 Let's deploy the Next.js application to [Vercel](https://vercel.com/). If you have ever deployed a Turborepo app there, the steps are quite straightforward. You can also read the [official Turborepo guide](https://vercel.com/docs/concepts/monorepos/turborepo) on deploying to Vercel.
