@@ -25,6 +25,7 @@ jobs:
       matrix:
         node-version: [14, 16, 18, 19]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      fail-fast: false
     services:
       postgres:
         image: "postgres"
