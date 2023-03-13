@@ -1,5 +1,5 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@igloo/nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,9 +12,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/api": "*",
-    "@acme/auth": "*",
-    "@acme/db": "*",
+    "@igloo/api": "*",
+    "@igloo/auth": "*",
+    "@igloo/db": "*",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",
     "@trpc/next": "^10.14.0",
@@ -33,7 +33,7 @@
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.34.0",
-    "eslint-config-acme": "0.0.0",
+    "eslint-config-igloo": "0.0.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "tsx": "^3.12.3",

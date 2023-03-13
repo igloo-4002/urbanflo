@@ -1,18 +1,17 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
-import { useState } from "react";
-import superjson from "superjson";
-
 // this for some reason results in vite getting bundled with prisma
 // which doesn't run on frontend
-// export { type RouterInputs, type RouterOutputs } from "@acme/api";
+// export { type RouterInputs, type RouterOutputs } from "@igloo/api";
 
 import {
   type AppRouter,
   type RouterInputs,
   type RouterOutputs,
-} from "@acme/api";
+} from "@igloo/api";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { httpBatchLink } from "@trpc/client";
+import { createTRPCReact } from "@trpc/react-query";
+import { useState } from "react";
+import superjson from "superjson";
 
 export const api = createTRPCReact<AppRouter>();
 

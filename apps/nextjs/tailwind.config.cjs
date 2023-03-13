@@ -2,7 +2,7 @@
 const config = {
   content: ["./src/**/*.tsx"],
   // @ts-ignore
-  presets: [require("@acme/tailwind-config")],
+  presets: [require("@igloo/tailwind-config")],
 };
 
 module.exports = config;
