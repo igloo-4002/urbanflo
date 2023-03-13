@@ -22,11 +22,10 @@ jobs:
       DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
         node-version: [14, 16, 18, 19]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       fail-fast: false
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: "postgres"
