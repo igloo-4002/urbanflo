@@ -28,7 +28,7 @@ packages
  |   └─ typesafe db-calls using Prisma
  └─ config
      ├─ monorepo tailwind config
-     ├─ monorepo eslint config
+     └─ monorepo eslint config
 
 ```
 
@@ -45,7 +45,7 @@ packages
 1. Clone the repo
 
 ```
-git clone ttps://github.com/igloo-4002/urban-planning-app
+git clone https://github.com/igloo-4002/urban-planning-app
 ```
 
 2. (**NVM users only**) Switch to the correct Node version (as specified in `.nvmrc`)
@@ -67,6 +67,8 @@ See [database configuration](#database-configuration) below for details
 ```
 cp .env.example .env
 ```
+
+**Note:** never commit the `.env` file, nor enter any sensitive information in the `.env.example` file!!!
 
 5. Push the Prisma schema to your database
 
@@ -93,8 +95,6 @@ Accessing the dev environment:
 
 On the connect tab of PostgreSQL plugin window, copy the value of `DATABASE_URL` to `DATABASE_URL` environment variable on the `.env` file.
 
-**NOTE:** never commit the `.env` file, nor enter any sensitive information in the `.env.example` file!!!
-
 #### Local PostgreSQL instance on Docker
 
 This is an alternative configuration for those who want to have an easy-to-setup, disposable database running locally in a Docker container.
@@ -108,6 +108,6 @@ After you set the variables, start the container with the commands below.
 Commands:
 
 - Start container: `docker compose -f docker-compose-db.yml up`
-- Start container detached (gives back control to shell after it finished starting): `docker compose -f docker-compose-db.yml up`
+- Start container detached (gives back control to shell after it finished starting): `docker compose -f docker-compose-db.yml up -d`
 - Stop and remove container: `docker compose -f docker-compose-db.yml down`
 - Stop and remove container, and delete all data: `docker compose -f docker-compose-db.yml down -v`
