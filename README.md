@@ -108,5 +108,6 @@ After you set the variables, start the container with the commands below.
 Commands:
 
 - Start container: `docker compose -f docker-compose-db.yml up`
-- Remove container: `docker compose -f docker-compose-db.yml down`
-- Remove container and delete all data: `docker compose -f docker-compose-db.yml down -v`
+- Start container detached (gives back control to shell after it finished starting): `docker compose -f docker-compose-db.yml up`
+- Stop and remove container: `docker compose -f docker-compose-db.yml down`
+- Stop and remove container, and delete all data: `docker compose -f docker-compose-db.yml down -v`
