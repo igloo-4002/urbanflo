@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: urban_planning_app
+      POSTGRES_USER: igloo
+      POSTGRES_PASSWORD: igloo # TODO: replace with something more secure
+
+volumes:
+  db-data:
