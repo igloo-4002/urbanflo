@@ -93,7 +93,7 @@ importers:
       '@types/react-dom': ^18.0.10
       '@vitejs/plugin-react': ^3.1.0
       autoprefixer: ^10.4.13
-      eslint-config-igloo: workspace:0.0.0
+      eslint-config-igloo: 0.0.0
       postcss: ^8.4.21
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -125,7 +125,7 @@ importers:
   packages/api:
     specifiers:
       '@igloo/auth': '*'
-      '@igloo/db': '*'
+      '@igloo/db': workspace:*
       '@trpc/client': ^10.14.0
       '@trpc/server': ^10.14.0
       eslint: ^8.34.0
