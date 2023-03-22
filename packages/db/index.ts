@@ -4,7 +4,7 @@ export * from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-const prismaInstance =
+export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
     log:
@@ -13,8 +13,4 @@ const prismaInstance =
         : ["error"],
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prismaInstance;
-}
-
-export const prisma = prismaInstance;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
