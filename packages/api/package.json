@@ -11,7 +11,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@igloo/auth": "*",
+    "@igloo/auth": "^0.1.0",
     "@igloo/db": "workspace:*",
     "@trpc/client": "^10.14.0",
     "@trpc/server": "^10.14.0",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "eslint": "^8.34.0",
-    "eslint-config-igloo": "0.0.0",
+    "eslint-config-igloo": "workspace:0.0.0",
     "typescript": "^4.9.5"
   }
 }
