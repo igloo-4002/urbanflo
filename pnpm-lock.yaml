@@ -206,13 +206,11 @@ importers:
   packages/db:
     specifiers:
       '@prisma/client': ^4.11.0
-      eslint-config-igloo: workspace:^0.0.0
       prisma: ^4.11.0
       typescript: ^4.9.5
     dependencies:
       '@prisma/client': 4.11.0_prisma@4.11.0
     devDependencies:
-      eslint-config-igloo: link:../config/eslint
       prisma: 4.11.0
       typescript: 4.9.5
 
