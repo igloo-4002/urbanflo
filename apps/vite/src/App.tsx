@@ -10,18 +10,15 @@ function App() {
   const [appState, setAppState] = useState<AppState>(getDefaultAppState());
 
   return (
-    <>
-      {" "}
-      <TRPCProvider>
-        <AppStateContext.Provider
-          value={{ context: appState, setContext: setAppState }}
-        >
-          <div className="flex h-screen w-screen items-center justify-center bg-white">
-            <Canvas />
-          </div>
-        </AppStateContext.Provider>
-      </TRPCProvider>
-    </>
+    <TRPCProvider>
+      <AppStateContext.Provider
+        value={{ context: appState, setContext: setAppState }}
+      >
+        <div className="flex h-screen w-screen items-center justify-center bg-white">
+          <Canvas />
+        </div>
+      </AppStateContext.Provider>
+    </TRPCProvider>
   );
 }
 
