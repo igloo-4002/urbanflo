@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "eslint": "^8.34.0",
-    "eslint-config-igloo": "workspace:0.0.0",
+    "@igloo/eslint-config": "*",
     "typescript": "^4.9.5"
   }
 }
