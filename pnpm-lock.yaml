@@ -125,7 +125,7 @@ importers:
   packages/api:
     specifiers:
       '@igloo/auth': '*'
-      '@igloo/db': '*'
+      '@igloo/db': ^0.1.0
       '@igloo/eslint-config': '*'
       '@trpc/client': ^10.18.0
       '@trpc/server': ^10.18.0
