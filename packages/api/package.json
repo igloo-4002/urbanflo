@@ -13,14 +13,14 @@
   "dependencies": {
     "@igloo/auth": "*",
     "@igloo/db": "^0.1.0",
-    "@trpc/client": "^10.18.0",
-    "@trpc/server": "^10.18.0",
+    "@trpc/client": "^10.14.0",
+    "@trpc/server": "^10.14.0",
     "superjson": "1.9.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@igloo/eslint-config": "*",
-    "eslint": "^8.36.0",
-    "typescript": "^5.0.2"
+    "eslint": "^8.34.0",
+    "typescript": "^4.9.5"
   }
 }

@@ -52,7 +52,7 @@ importers:
       tailwindcss: ^3.2.7
       tsx: ^3.12.3
       typescript: ^4.9.5
-      zod: ^3.20.6
+      zod: ^3.21.4
     dependencies:
       '@igloo/api': link:../../packages/api
       '@igloo/auth': link:../../packages/auth
@@ -95,11 +95,11 @@ importers:
       '@vitejs/plugin-react': ^3.1.0
       autoprefixer: ^10.4.13
       postcss: ^8.4.21
-      react: ^18.2.0
-      react-dom: ^18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0
       superjson: 1.9.1
       tailwindcss: ^3.2.7
-      typescript: ^4.9.3
+      typescript: ^4.9.5
       vite: ^4.1.0
     dependencies:
       '@tanstack/react-query': 4.28.0_biqbaboplfbrettd7655fr4n2y
@@ -127,11 +127,11 @@ importers:
       '@igloo/auth': '*'
       '@igloo/db': ^0.1.0
       '@igloo/eslint-config': '*'
-      '@trpc/client': ^10.18.0
-      '@trpc/server': ^10.18.0
-      eslint: ^8.36.0
+      '@trpc/client': ^10.14.0
+      '@trpc/server': ^10.14.0
+      eslint: ^8.34.0
       superjson: 1.9.1
-      typescript: ^5.0.2
+      typescript: ^4.9.5
       zod: ^3.21.4
     dependencies:
       '@igloo/auth': link:../auth
@@ -143,7 +143,7 @@ importers:
     devDependencies:
       '@igloo/eslint-config': link:../config/eslint
       eslint: 8.36.0
-      typescript: 5.0.2
+      typescript: 4.9.5
 
   packages/auth:
     specifiers:
@@ -207,12 +207,12 @@ importers:
     specifiers:
       '@prisma/client': ^4.11.0
       prisma: ^4.11.0
-      typescript: ^5.0.2
+      typescript: ^4.9.5
     dependencies:
       '@prisma/client': 4.11.0_prisma@4.11.0
     devDependencies:
       prisma: 4.11.0
-      typescript: 5.0.2
+      typescript: 4.9.5
 
 packages:
 
@@ -4038,12 +4038,6 @@ packages:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-
-  /typescript/5.0.2:
-    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
-    engines: {node: '>=12.20'}
-    hasBin: true
-    dev: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
