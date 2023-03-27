@@ -23,7 +23,12 @@ const config = {
       { prefer: "type-imports", fixStyle: "inline-type-imports" },
     ],
   },
-  ignorePatterns: ["**/*.config.js", "**/*.config.cjs", "packages/config/**"],
+  ignorePatterns: [
+    "**/*.config.js",
+    "**/*.config.cjs",
+    "**/*.config.ts",
+    "packages/config/**",
+  ],
   reportUnusedDisableDirectives: true,
 };
 
