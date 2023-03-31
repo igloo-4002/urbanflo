@@ -3,7 +3,7 @@
   "extends": ["config:base"],
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@igloo/", "eslint-config-igloo"],
+      "matchPackagePatterns": ["^@igloo/"],
       "enabled": false
     }
   ],
