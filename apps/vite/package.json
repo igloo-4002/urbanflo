@@ -15,8 +15,10 @@
     "@trpc/client": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
     "@trpc/server": "^10.14.0",
+    "konva": "^8.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-konva": "^18.2.5",
     "superjson": "1.9.1"
   },
   "devDependencies": {
