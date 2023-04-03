@@ -1,112 +1,66 @@
 import React, { useEffect, useRef } from "react";
 
+import carPNG from "../assets/car.png";
+import sinkSVG from "../assets/sink.svg";
+import sourceSVG from "../assets/source.svg";
+
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const carPos = useRef({ x: 0, y: 0 });
 
-  // const canvasScale = window.devicePixelRatio;
-
-  // const canvasHeight = 800 * canvasScale; // temporarily hardcoded values
-  // const canvasWidth = 800 * canvasScale; // temporarily hardcoded values
-
-  const handleContextMenu: (event: React.MouseEvent) => void = (
-    _event: React.MouseEvent,
-  ) => {
-    console.warn("handleContextMenu triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerDown: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerDown triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handleDoubleClick: (event: React.MouseEvent) => void = (
-    _event: React.MouseEvent,
-  ) => {
-    console.warn("handleDoubleClick triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerMove: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerMove triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerUp: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerUp triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const removePointer: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("removePointer triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handleTouchMove: (
-    event: React.TouchEvent<HTMLCanvasElement>,
-  ) => void = (_event: React.TouchEvent<HTMLCanvasElement>) => {
-    console.warn("handleTouchMove triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const draw: () => void = () => {
+  const placeCar = () => {
     const canvas = canvasRef.current;
-    const GRID_SIZE = 50;
 
-    if (canvas === null) return;
-
-    const ctx = canvas.getContext("2d");
-
-    if (ctx === null) return;
-
-    const left = 0.5 - Math.ceil(canvas.width / GRID_SIZE) * GRID_SIZE;
-    const top = 0.5 - Math.ceil(canvas.height / GRID_SIZE) * GRID_SIZE;
-    const right = 2 * canvas.width;
-    const bottom = 2 * canvas.height;
-
-    ctx.clearRect(left, top, right - left, bottom - top);
-    ctx.beginPath();
-
-    for (let x = left; x < right; x += GRID_SIZE) {
-      ctx.moveTo(x, top);
-      ctx.lineTo(x, bottom);
+    const ctx = canvas?.getContext("2d");
+    if (canvas && ctx) {
+      const car = new Image();
+      car.src = carPNG;
+      car.onload = () => {
+        ctx.drawImage(
+          car,
+          carPos.current.x,
+          canvas.height - car.height - carPos.current.y,
+        );
+      };
     }
+  };
 
-    for (let y = top; y < bottom; y += GRID_SIZE) {
-      ctx.moveTo(left, y);
-      ctx.lineTo(right, y);
+  const placeSourceAndSink = () => {
+    const canvas = canvasRef.current;
+
+    const ctx = canvas?.getContext("2d");
+    if (canvas && ctx) {
+      // Set the canvas dimensions
+      canvas.width = 600; // You can set this value as needed
+      canvas.height = 600; // You can set this value as needed
+
+      // place source.svg in the bottom left corner of the canvas
+      const source = new Image();
+      source.src = sourceSVG;
+      source.onload = () => {
+        ctx.drawImage(source, 0, canvas.height - source.height);
+      };
+
+      // place sink.svg in the top right corner of the canvas
+      const sink = new Image();
+      sink.src = sinkSVG;
+      sink.onload = () => {
+        ctx.drawImage(sink, canvas.width - sink.width, 0);
+      };
     }
-
-    ctx.strokeStyle = "#888";
-    ctx.stroke();
   };
 
   useEffect(() => {
-    draw();
+    placeSourceAndSink();
+    placeCar();
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        background: "silver",
-      }}
-      onContextMenu={handleContextMenu}
-      onPointerDown={handlePointerDown}
-      onDoubleClick={handleDoubleClick}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={removePointer}
-      onTouchMove={handleTouchMove}
-    ></canvas>
+      className="border bg-slate-300"
+      style={{ width: "600px", height: "600px" }}
+    />
   );
 };
 
