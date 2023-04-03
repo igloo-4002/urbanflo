@@ -1,113 +1,79 @@
-import React, { useEffect, useRef } from "react";
+import type Konva from "konva";
+import React, { useEffect, useRef, useState } from "react";
+import { Image, Layer, Stage } from "react-konva";
 
-const Canvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+import carImage from "../assets/car.png";
 
-  // const canvasScale = window.devicePixelRatio;
-
-  // const canvasHeight = 800 * canvasScale; // temporarily hardcoded values
-  // const canvasWidth = 800 * canvasScale; // temporarily hardcoded values
-
-  const handleContextMenu: (event: React.MouseEvent) => void = (
-    _event: React.MouseEvent,
-  ) => {
-    console.warn("handleContextMenu triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerDown: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerDown triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handleDoubleClick: (event: React.MouseEvent) => void = (
-    _event: React.MouseEvent,
-  ) => {
-    console.warn("handleDoubleClick triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerMove: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerMove triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handlePointerUp: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("handlePointerUp triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const removePointer: (event: React.PointerEvent) => void = (
-    _event: React.PointerEvent,
-  ) => {
-    console.warn("removePointer triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const handleTouchMove: (
-    event: React.TouchEvent<HTMLCanvasElement>,
-  ) => void = (_event: React.TouchEvent<HTMLCanvasElement>) => {
-    console.warn("handleTouchMove triggered - NOT YET IMPLMENTED");
-    return;
-  };
-
-  const draw: () => void = () => {
-    const canvas = canvasRef.current;
-    const GRID_SIZE = 50;
-
-    if (canvas === null) return;
-
-    const ctx = canvas.getContext("2d");
-
-    if (ctx === null) return;
-
-    const left = 0.5 - Math.ceil(canvas.width / GRID_SIZE) * GRID_SIZE;
-    const top = 0.5 - Math.ceil(canvas.height / GRID_SIZE) * GRID_SIZE;
-    const right = 2 * canvas.width;
-    const bottom = 2 * canvas.height;
-
-    ctx.clearRect(left, top, right - left, bottom - top);
-    ctx.beginPath();
-
-    for (let x = left; x < right; x += GRID_SIZE) {
-      ctx.moveTo(x, top);
-      ctx.lineTo(x, bottom);
-    }
-
-    for (let y = top; y < bottom; y += GRID_SIZE) {
-      ctx.moveTo(left, y);
-      ctx.lineTo(right, y);
-    }
-
-    ctx.strokeStyle = "#888";
-    ctx.stroke();
-  };
+const CarCanvas: React.FC = () => {
+  const [car, setCar] = useState<HTMLImageElement | null>(null);
+  const carRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
-    draw();
+    const image = new window.Image();
+    image.src = carImage;
+    image.onload = () => {
+      setCar(image);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (carRef.current) {
+      carRef.current.cache();
+      carRef.current.getLayer()?.batchDraw();
+    }
+  }, [car]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!carRef.current) return;
+
+      const step = 5;
+      let newPosition: { x: number; y: number };
+
+      switch (e.key) {
+        case "ArrowUp":
+          newPosition = { x: carRef.current.x(), y: carRef.current.y() - step };
+          break;
+        case "ArrowDown":
+          newPosition = { x: carRef.current.x(), y: carRef.current.y() + step };
+          break;
+        case "ArrowLeft":
+          newPosition = { x: carRef.current.x() - step, y: carRef.current.y() };
+          break;
+        case "ArrowRight":
+          newPosition = { x: carRef.current.x() + step, y: carRef.current.y() };
+          break;
+        default:
+          return;
+      }
+
+      carRef.current.position(newPosition);
+      carRef.current.getLayer()?.batchDraw();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        background: "silver",
-      }}
-      onContextMenu={handleContextMenu}
-      onPointerDown={handlePointerDown}
-      onDoubleClick={handleDoubleClick}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={removePointer}
-      onTouchMove={handleTouchMove}
-    ></canvas>
+    <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Layer>
+        {car && (
+          <Image
+            alt="A car"
+            ref={carRef}
+            image={car}
+            x={window.innerWidth / 2}
+            y={window.innerHeight / 2}
+            draggable
+          />
+        )}
+      </Layer>
+    </Stage>
   );
 };
 
-export default Canvas;
+export default CarCanvas;
