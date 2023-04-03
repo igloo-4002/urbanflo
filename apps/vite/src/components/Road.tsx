@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
 function Road() {
-  const [color, setColor] = useState("#F7B326");
-  const [width, setWidth] = useState("100px");
-  const [height, setHeight] = useState("20px");
-
   const [speedLimit, setSpeedLimit] = useState("");
   const [numLanes, setNumLanes] = useState("");
   const [direction, setDirection] = useState("north");
@@ -37,9 +33,9 @@ function Road() {
     <div>
       <div
         style={{
-          backgroundColor: color,
-          width: width,
-          height: height,
+          backgroundColor: "#F7B326",
+          width: "100px",
+          height: "20px",
         }}
         onClick={handleSidebarToggle}
       ></div>
