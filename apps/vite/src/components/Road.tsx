@@ -37,10 +37,9 @@ function Road() {
     <div>
       <div
         style={{
-          backgroundColor: "black",
-          width: "100px",
-          height: "20px",
-          marginTop: "20px",
+          backgroundColor: color,
+          width: width,
+          height: height,
         }}
         onClick={handleSidebarToggle}
       ></div>
