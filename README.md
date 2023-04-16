@@ -60,7 +60,13 @@ nvm use
 pnpm install
 ```
 
-4. Copy example environment file and configure environment variables
+4. Initialise git hooks
+
+```
+pnpm prepare
+```
+
+5. Copy example environment file and configure environment variables
 
 See [database configuration](#database-configuration) below for details
 
@@ -70,7 +76,7 @@ cp .env.example .env
 
 **Note:** never commit the `.env` file, nor enter any sensitive information in the `.env.example` file!!!
 
-5. Push the Prisma schema to your database
+6. Push the Prisma schema to your database
 
 ```
 pnpm db:push
@@ -78,7 +84,7 @@ pnpm db:push
 
 **Note:** if you're using a local PostgreSQL instance, start the DB/container first.
 
-6. Run dev environment
+7. Run dev environment
 
 ```
 pnpm dev
