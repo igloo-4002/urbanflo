@@ -3,11 +3,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
+import roadImage from "../assets/road.png";
+import Road from "./Road";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
+
+  const [road, setRoad] = useState<HTMLImageElement | null>(null);
+  const roadRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
     const image = new window.Image();
@@ -20,11 +25,27 @@ export default function Canvas() {
   }, []);
 
   useEffect(() => {
+    const image = new window.Image();
+    image.src = roadImage;
+    image.width = 250;
+    image.height = 100;
+    image.onload = () => {
+      setRoad(image);
+    };
+  }, []);
+
+  useEffect(() => {
     if (carRef.current) {
       carRef.current.cache();
       carRef.current.getLayer()?.batchDraw();
     }
   }, [car]);
+
+  useEffect(() => {
+    if (roadRef.current) {
+      roadRef.current.rotation(90);
+    }
+  }, [road]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,13 +106,37 @@ export default function Canvas() {
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
+        {road && (
+          <Image
+            alt="A road"
+            ref={roadRef}
+            image={road}
+            x={300}
+            y={145}
+            draggable
+            offsetX={road.width / 2}
+            offsetY={road.height / 2}
+          />
+        )}
+        {road && (
+          <Image
+            alt="A road"
+            ref={roadRef}
+            image={road}
+            x={300}
+            y={300}
+            draggable
+            offsetX={road.width / 2}
+            offsetY={road.height / 2}
+          />
+        )}
         {car && (
           <Image
             alt="A car"
             ref={carRef}
             image={car}
-            x={0}
-            y={0}
+            x={300}
+            y={300}
             draggable
             offsetX={car.width / 2}
             offsetY={car.height / 2}
