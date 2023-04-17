@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext } from "react";
+
+import AppStateContext from "../context/AppStateContext";
 
 export default function FloatingSideBar() {
-  const [show, setShow] = useState(true);
+  const { appState, setAppState } = useContext(AppStateContext);
 
   return (
     <div
@@ -12,14 +14,19 @@ export default function FloatingSideBar() {
         zIndex: 1000,
         maxHeight: "min-content",
         maxWidth: "min-content",
-        display: show ? "flex" : "none",
+        display: appState.isLeftSideBarOpen ? "flex" : "none",
         justifyContent: "center",
         alignContent: "center",
+        flexDirection: "column",
         backgroundColor: "red",
         padding: "15px",
       }}
-      onClick={() => setShow(!show)}
     >
+      <button
+        onClick={() => setAppState({ ...appState, isLeftSideBarOpen: false })}
+      >
+        Close
+      </button>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nisi,
         nulla, quidem exercitationem hic labore tempore fuga, expedita maiores

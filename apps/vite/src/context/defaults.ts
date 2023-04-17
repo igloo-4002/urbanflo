@@ -11,5 +11,6 @@ export const getDefaultAppState: () => AppState = () => {
     projectState: {
       isSaved: true, // when a user creates a project, it is saved by default
     },
+    isLeftSideBarOpen: true,
   };
 };

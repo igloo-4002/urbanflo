@@ -33,4 +33,5 @@ export type AppState = {
   projectState: {
     isSaved: boolean;
   };
+  isLeftSideBarOpen: boolean;
 };
