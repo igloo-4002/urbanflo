@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: ["*"]
   push:
-    branches: ["master", "development"]
+    branches: ["master", "development", "github-actions"]
   merge_group:
 
 # You can leverage Vercel Remote Caching with Turbo to speed up your builds
@@ -12,30 +12,47 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  POSTGRES_USER: igloo_gh_actions
+  POSTGRES_PASSWORD: igloo_gh_actions
+  POSTGRES_DB: urban_planning_app
 
 jobs:
-  build-lint:
+  build:
     env:
-      DATABASE_URL: file:./db.sqlite
+      DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
+    strategy:
+      matrix:
+        node-version: [16, 18, 19]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      fail-fast: false
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: "postgres"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          POSTGRES_DB: $POSTGRES_DB
+        ports:
+          - "5432:5432"
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.4
-
-      - name: Setup Node 18
+      - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-
+          node-version: ${{ matrix.node-version }}
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
           echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
-
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -43,17 +60,25 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
       - name: Install deps (with cache)
         run: pnpm install
 
       - name: Generate Prisma Client
-        run: pnpm turbo db:generate
-
-      - name: Build, lint and type-check
-        run: pnpm turbo build lint type-check
+        run: pnpm db:generate
+      - name: Push the Prisma schema to the database
+        run: pnpm db:push
+      - name: Lint and check workspaces
+        run: pnpm lint
+      - name: Type check
+        run: pnpm type-check
+      - name: Build
+        run: pnpm build
         env:
           SKIP_ENV_VALIDATION: true
-
-      - name: Check workspaces
-        run: pnpm manypkg check
+      - name: Save build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: urban-planning-app-node${{ matrix.node-version }}
+          path: |
+            apps/nextjs/.next
+            apps/vite/dist
