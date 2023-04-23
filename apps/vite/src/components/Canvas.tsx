@@ -4,7 +4,6 @@ import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
 import roadImage from "../assets/road.png";
-import Road from "./Road";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
@@ -130,7 +129,10 @@ export default function Canvas() {
         return false;
       }
       return (
-        point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y
+        point.x >= rect.x &&
+        point.x <= rect.x + rect.height &&
+        point.y >= rect.y &&
+        point.y <= rect.y + rect.width
       );
     };
 
