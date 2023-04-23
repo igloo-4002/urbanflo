@@ -5,6 +5,10 @@ import AppStateContext from "../context/AppStateContext";
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
 
+  function closeModal() {
+    setAppState({ ...appState, isLeftSideBarOpen: false });
+  }
+
   return (
     <div
       style={{
@@ -18,13 +22,13 @@ export default function FloatingSideBar() {
         justifyContent: "center",
         alignContent: "center",
         flexDirection: "column",
-        backgroundColor: "red",
+        backgroundColor: "lightgreen",
         padding: "15px",
+        borderRadius: "10px",
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       }}
     >
-      <button
-        onClick={() => setAppState({ ...appState, isLeftSideBarOpen: false })}
-      >
+      <button style={{ width: "200px" }} onClick={() => closeModal()}>
         Close
       </button>
       <p>
