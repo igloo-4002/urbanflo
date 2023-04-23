@@ -57,10 +57,25 @@ export default function Canvas() {
     };
 
     const moveCar = () => {
-      if (!carRef.current) return;
+      if (!carRef.current || !roadRef.current) return;
 
       const step = 5;
       const rotationStep = 5;
+
+      const carBounds = carRef.current.getClientRect();
+      const roadBounds1 = roadRef.current.getClientRect({
+        skipTransform: true,
+        skipShadow: true,
+      });
+      roadBounds1.x = 300;
+      roadBounds1.y = 145;
+
+      const roadBounds2 = roadRef.current.getClientRect({
+        skipTransform: true,
+        skipShadow: true,
+      });
+      roadBounds2.x = 300;
+      roadBounds2.y = 300;
 
       if (keysPressed.current["ArrowUp"]) {
         const angle = carRef.current.rotation() * (Math.PI / 180);
@@ -68,7 +83,12 @@ export default function Canvas() {
           x: carRef.current.x() + step * Math.sin(angle),
           y: carRef.current.y() - step * Math.cos(angle),
         };
-        carRef.current.position(newPosition);
+        if (
+          isPointInsideRect(newPosition, roadBounds1) ||
+          isPointInsideRect(newPosition, roadBounds2)
+        ) {
+          carRef.current.position(newPosition);
+        }
       }
 
       if (keysPressed.current["ArrowDown"]) {
@@ -77,7 +97,12 @@ export default function Canvas() {
           x: carRef.current.x() - step * Math.sin(angle),
           y: carRef.current.y() + step * Math.cos(angle),
         };
-        carRef.current.position(newPosition);
+        if (
+          isPointInsideRect(newPosition, roadBounds1) ||
+          isPointInsideRect(newPosition, roadBounds2)
+        ) {
+          carRef.current.position(newPosition);
+        }
       }
 
       if (keysPressed.current["ArrowLeft"]) {
@@ -89,6 +114,24 @@ export default function Canvas() {
       }
 
       carRef.current.getLayer()?.batchDraw();
+    };
+
+    const isPointInsideRect = (
+      point: { x: number; y: number },
+      rect: Konva.RectConfig | undefined,
+    ) => {
+      if (
+        !rect ||
+        rect.x === undefined ||
+        rect.y === undefined ||
+        rect.width === undefined ||
+        rect.height === undefined
+      ) {
+        return false;
+      }
+      return (
+        point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y
+      );
     };
 
     const interval = setInterval(moveCar, 1000 / 60); // 60 FPS
