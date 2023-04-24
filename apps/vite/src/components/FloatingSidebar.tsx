@@ -2,6 +2,8 @@ import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
 import { ModalViewNames } from "../context/types";
+import IntersectionPropertiesEditor from "./Modals/IntersectionPropertiesEditor";
+import RoadPropertiesEditor from "./Modals/RoadPropertiesEditor";
 
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
@@ -26,9 +28,9 @@ export default function FloatingSideBar() {
           </p>
         );
       case ModalViewNames.ROAD_PROPERTIES_EDITOR:
-        return <></>;
+        return <RoadPropertiesEditor />;
       case ModalViewNames.INTERSECTION_PROPERTIES_EDITOR:
-        return <></>;
+        return <IntersectionPropertiesEditor />;
     }
   }
 
@@ -52,7 +54,10 @@ export default function FloatingSideBar() {
         overflowWrap: "break-word",
       }}
     >
-      <button style={{ width: "100%" }} onClick={() => closeModal()}>
+      <button
+        style={{ width: "100%", marginBottom: "8px" }}
+        onClick={() => closeModal()}
+      >
         Close
       </button>
       {view()}
