@@ -1,4 +1,4 @@
-import { type AppState } from "./types";
+import { ModalViewNames, type AppState } from "./types";
 
 export const getDefaultAppState: () => AppState = () => {
   return {
@@ -13,7 +13,7 @@ export const getDefaultAppState: () => AppState = () => {
     },
     leftSideBarState: {
       isOpen: true,
-      viewName: null,
+      viewName: ModalViewNames.ROAD_PROPERTIES_EDITOR,
     },
   };
 };
