@@ -20,17 +20,14 @@ export default function FloatingSideBar() {
     switch (appState.leftSideBarState.viewName) {
       case null:
         return (
-          <>
-            <p>
-              appState.leftSideBarState.viewName is null but the sidebar is open
-              - make sure you are setting the view name when you open the
-              sidebar
-            </p>
-          </>
+          <p>
+            appState.leftSideBarState.viewName is null but the sidebar is open -
+            make sure you are setting the view name when you open the sidebar
+          </p>
         );
-      case ModalViewNames.ROAD_PROPERTY_EDITOR:
+      case ModalViewNames.ROAD_PROPERTIES_EDITOR:
         return <></>;
-      case ModalViewNames.INTERSECTION_PROPERTY_EDITOR:
+      case ModalViewNames.INTERSECTION_PROPERTIES_EDITOR:
         return <></>;
     }
   }

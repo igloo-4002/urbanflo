@@ -8,8 +8,8 @@ export const CanvasItemType = {
 } as const;
 
 export const ModalViewNames = {
-  ROAD_PROPERTY_EDITOR: "road-property-editor",
-  INTERSECTION_PROPERTY_EDITOR: "intersection-property-editor",
+  ROAD_PROPERTIES_EDITOR: "road-properties-editor",
+  INTERSECTION_PROPERTIES_EDITOR: "intersection-properties-editor",
 } as const;
 
 export interface CanvasItem {
