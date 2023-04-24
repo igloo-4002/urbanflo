@@ -7,7 +7,7 @@ export enum CanvasItemType {
   TRAFFIC_LIGHT = "traffic-light",
 }
 
-export type CanvasItem = {
+export interface CanvasItem {
   info: {
     type: CanvasItemType;
   };
@@ -21,7 +21,23 @@ export type CanvasItem = {
     offsetX: number;
     offsetY: number;
   };
-};
+}
+
+export interface Road extends CanvasItem {
+  speedLimit: number;
+  lanes: number;
+  length: number;
+  direction: "horizontal" | "vertical";
+}
+
+export interface Car extends CanvasItem {
+  speed: number;
+  direction: "horizontal" | "vertical";
+}
+
+export interface Intersection extends CanvasItem {
+  connectingRoads: number[];
+}
 
 export type AppState = {
   projectInfo: {
