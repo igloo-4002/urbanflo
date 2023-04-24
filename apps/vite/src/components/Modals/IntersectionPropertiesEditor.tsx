@@ -1,3 +1,3 @@
 export default function IntersectionPropertiesEditor() {
-  return <></>;
+  return <p>NOT YET IMPLEMENTED</p>;
 }
