@@ -12,6 +12,19 @@ export const ModalViewNames = {
   INTERSECTION_PROPERTIES_EDITOR: "intersection-properties-editor",
 } as const;
 
+/**
+ * Usage of `RoadDirections` is as follows:
+ * If a direction is specified, then the direction of road travel would be towards that direction.
+ *
+ * For example, RoadDirections.UP would mean that the road is travelling from bottom to top.
+ */
+export const RoadDirections = {
+  UP: "up",
+  DOWN: "down",
+  LEFT: "left",
+  RIGHT: "right",
+} as const;
+
 export interface CanvasItem {
   info: {
     type: typeof CanvasItemType;
