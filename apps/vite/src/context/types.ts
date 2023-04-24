@@ -7,6 +7,11 @@ export const CanvasItemType = {
   TRAFFIC_LIGHT: "traffic-light",
 } as const;
 
+export const ModalViewNames = {
+  ROAD_PROPERTY_EDITOR: "road-property-editor",
+  INTERSECTION_PROPERTY_EDITOR: "intersection-property-editor",
+} as const;
+
 export interface CanvasItem {
   info: {
     type: typeof CanvasItemType;
@@ -49,5 +54,8 @@ export type AppState = {
   projectState: {
     isSaved: boolean;
   };
-  isLeftSideBarOpen: boolean;
+  leftSideBarState: {
+    viewName: string | null;
+    isOpen: boolean;
+  };
 };

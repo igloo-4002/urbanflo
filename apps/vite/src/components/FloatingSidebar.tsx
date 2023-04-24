@@ -1,12 +1,38 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
+import { ModalViewNames } from "../context/types";
 
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
 
   function closeModal() {
-    setAppState({ ...appState, isLeftSideBarOpen: false });
+    setAppState({
+      ...appState,
+      leftSideBarState: { isOpen: false, viewName: null },
+    });
+  }
+  function isSideBarOpen() {
+    return appState.leftSideBarState.isOpen;
+  }
+
+  function view() {
+    switch (appState.leftSideBarState.viewName) {
+      case null:
+        return (
+          <>
+            <p>
+              appState.leftSideBarState.viewName is null but the sidebar is open
+              - make sure you are setting the view name when you open the
+              sidebar
+            </p>
+          </>
+        );
+      case ModalViewNames.ROAD_PROPERTY_EDITOR:
+        return <></>;
+      case ModalViewNames.INTERSECTION_PROPERTY_EDITOR:
+        return <></>;
+    }
   }
 
   return (
@@ -17,26 +43,22 @@ export default function FloatingSideBar() {
         left: 15,
         zIndex: 1000,
         maxHeight: "min-content",
-        maxWidth: "min-content",
-        display: appState.isLeftSideBarOpen ? "flex" : "none",
+        width: "200px",
+        display: isSideBarOpen() ? "flex" : "none",
         justifyContent: "center",
         alignContent: "center",
         flexDirection: "column",
-        backgroundColor: "lightgreen",
-        padding: "15px",
+        backgroundColor: "#FAF9F6",
+        padding: "12px",
         borderRadius: "10px",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        overflowWrap: "break-word",
       }}
     >
-      <button style={{ width: "200px" }} onClick={() => closeModal()}>
+      <button style={{ width: "100%" }} onClick={() => closeModal()}>
         Close
       </button>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nisi,
-        nulla, quidem exercitationem hic labore tempore fuga, expedita maiores
-        earum minus illum iusto excepturi voluptas aut odio inventore odit
-        ipsum.
-      </p>
+      {view()}
     </div>
   );
 }
