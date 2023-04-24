@@ -1,15 +1,15 @@
 import { type RefObject } from "react";
 import { type Image } from "react-konva";
 
-export enum CanvasItemType {
-  ROAD = "road",
-  CAR = "car",
-  TRAFFIC_LIGHT = "traffic-light",
-}
+export const CanvasItemType = {
+  ROAD: "road",
+  CAR: "car",
+  TRAFFIC_LIGHT: "traffic-light",
+} as const;
 
 export interface CanvasItem {
   info: {
-    type: CanvasItemType;
+    type: typeof CanvasItemType;
   };
   props: {
     alt: string;
