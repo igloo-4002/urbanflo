@@ -27,7 +27,7 @@ export const RoadDirections = {
 
 export interface CanvasItem {
   info: {
-    type: typeof CanvasItemType;
+    type: string;
   };
   props: {
     alt: string;

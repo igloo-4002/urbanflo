@@ -4,11 +4,66 @@ import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
 import roadImage from "../assets/road.png";
+import { CanvasItemType, type AppState, type Road } from "../context/types";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
+
+  const road1: Road = {
+    info: {
+      type: CanvasItemType.ROAD,
+    },
+    props: {
+      alt: "Road 1",
+      image: new window.Image(),
+      x: 50,
+      y: 100,
+      draggable: true,
+      offsetX: 50,
+      offsetY: 50,
+    },
+    speedLimit: 60,
+    lanes: 2,
+    length: 200,
+    direction: "horizontal",
+  };
+
+  const road2: Road = {
+    info: {
+      type: CanvasItemType.ROAD,
+    },
+    props: {
+      alt: "Road 2",
+      image: new window.Image(),
+      x: 300,
+      y: 150,
+      draggable: true,
+      offsetX: 50,
+      offsetY: 50,
+    },
+    speedLimit: 40,
+    lanes: 1,
+    length: 150,
+    direction: "vertical",
+  };
+
+  const [appState, setAppState] = useState<AppState>({
+    projectInfo: {
+      name: "My Project",
+    },
+    canvasState: {
+      canvasItems: [road1, road2],
+    },
+    projectState: {
+      isSaved: false,
+    },
+    leftSideBarState: {
+      viewName: null,
+      isOpen: false,
+    },
+  });
 
   const [road, setRoad] = useState<HTMLImageElement | null>(null);
   const roadRef = useRef<Konva.Image>(null);
@@ -151,30 +206,22 @@ export default function Canvas() {
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-        {road && (
-          <Image
-            alt="A road"
-            ref={roadRef}
-            image={road}
-            x={300}
-            y={145}
-            draggable
-            offsetX={road.width / 2}
-            offsetY={road.height / 2}
-          />
-        )}
-        {road && (
-          <Image
-            alt="A road"
-            ref={roadRef}
-            image={road}
-            x={300}
-            y={300}
-            draggable
-            offsetX={road.width / 2}
-            offsetY={road.height / 2}
-          />
-        )}
+        {appState.canvasState.canvasItems.map((item, index) => {
+          if (item.info.type === "road" && road) {
+            return (
+              <Image
+                key={index}
+                image={road}
+                x={300}
+                y={145}
+                draggable
+                offsetX={road.width / 2}
+                offsetY={road.height / 2}
+              />
+            );
+          }
+          return null;
+        })}
         {car && (
           <Image
             alt="A car"
