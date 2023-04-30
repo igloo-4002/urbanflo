@@ -1,72 +1,26 @@
 import type Konva from "konva";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
-import roadImage from "../assets/road.png";
-import { CanvasItemType, type AppState, type Road } from "../context/types";
+import roadImageHorizontal from "../assets/roadHorizontal.png";
+import roadImageVertical from "../assets/roadVertical.png";
+import AppStateContext from "../context/AppStateContext";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
 
-  const road1: Road = {
-    info: {
-      type: CanvasItemType.ROAD,
-    },
-    props: {
-      alt: "Road 1",
-      image: new window.Image(),
-      x: 50,
-      y: 100,
-      draggable: true,
-      offsetX: 50,
-      offsetY: 50,
-    },
-    speedLimit: 60,
-    lanes: 2,
-    length: 200,
-    direction: "horizontal",
-  };
-
-  const road2: Road = {
-    info: {
-      type: CanvasItemType.ROAD,
-    },
-    props: {
-      alt: "Road 2",
-      image: new window.Image(),
-      x: 300,
-      y: 150,
-      draggable: true,
-      offsetX: 50,
-      offsetY: 50,
-    },
-    speedLimit: 40,
-    lanes: 1,
-    length: 150,
-    direction: "vertical",
-  };
-
-  const [appState, setAppState] = useState<AppState>({
-    projectInfo: {
-      name: "My Project",
-    },
-    canvasState: {
-      canvasItems: [road1, road2],
-    },
-    projectState: {
-      isSaved: false,
-    },
-    leftSideBarState: {
-      viewName: null,
-      isOpen: false,
-    },
-  });
-
-  const [road, setRoad] = useState<HTMLImageElement | null>(null);
+  const [roadHorizontal, setRoadHorizontal] = useState<HTMLImageElement | null>(
+    null,
+  );
+  const [roadVertical, setRoadVertical] = useState<HTMLImageElement | null>(
+    null,
+  );
   const roadRef = useRef<Konva.Image>(null);
+
+  const { appState, setAppState } = useContext(AppStateContext);
 
   useEffect(() => {
     const image = new window.Image();
@@ -79,12 +33,22 @@ export default function Canvas() {
   }, []);
 
   useEffect(() => {
-    const image = new window.Image();
-    image.src = roadImage;
-    image.width = 250;
-    image.height = 100;
-    image.onload = () => {
-      setRoad(image);
+    const imageHorizontal = new window.Image();
+    imageHorizontal.src = roadImageHorizontal;
+    imageHorizontal.width = 250;
+    imageHorizontal.height = 100;
+    imageHorizontal.onload = () => {
+      setRoadHorizontal(imageHorizontal);
+    };
+  }, []);
+
+  useEffect(() => {
+    const imageVertical = new window.Image();
+    imageVertical.src = roadImageVertical;
+    imageVertical.width = 100;
+    imageVertical.height = 250;
+    imageVertical.onload = () => {
+      setRoadVertical(imageVertical);
     };
   }, []);
 
@@ -94,12 +58,6 @@ export default function Canvas() {
       carRef.current.getLayer()?.batchDraw();
     }
   }, [car]);
-
-  useEffect(() => {
-    if (roadRef.current) {
-      roadRef.current.rotation(90);
-    }
-  }, [road]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -121,15 +79,15 @@ export default function Canvas() {
         skipTransform: true,
         skipShadow: true,
       });
-      roadBounds1.x = 300;
-      roadBounds1.y = 145;
+      roadBounds1.x = 500;
+      roadBounds1.y = 500;
 
       const roadBounds2 = roadRef.current.getClientRect({
         skipTransform: true,
         skipShadow: true,
       });
-      roadBounds2.x = 300;
-      roadBounds2.y = 300;
+      roadBounds2.x = 420;
+      roadBounds2.y = 420;
 
       if (keysPressed.current["ArrowUp"]) {
         const angle = carRef.current.rotation() * (Math.PI / 180);
@@ -207,16 +165,37 @@ export default function Canvas() {
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         {appState.canvasState.canvasItems.map((item, index) => {
-          if (item.info.type === "road" && road) {
+          if (
+            item.info.type === "road" &&
+            roadHorizontal &&
+            item.direction === "left"
+          ) {
             return (
               <Image
                 key={index}
-                image={road}
-                x={300}
-                y={145}
+                image={roadHorizontal}
+                x={item.props.x}
+                y={item.props.y}
                 draggable
-                offsetX={road.width / 2}
-                offsetY={road.height / 2}
+                offsetX={item.props.offsetX}
+                offsetY={item.props.offsetY}
+              />
+            );
+          } else if (
+            item.info.type === "road" &&
+            item.direction === "up" &&
+            roadVertical
+          ) {
+            return (
+              <Image
+                key={index}
+                ref={roadRef}
+                image={roadVertical}
+                x={item.props.x}
+                y={item.props.y}
+                draggable
+                offsetX={item.props.offsetX}
+                offsetY={item.props.offsetY}
               />
             );
           }
@@ -227,8 +206,8 @@ export default function Canvas() {
             alt="A car"
             ref={carRef}
             image={car}
-            x={300}
-            y={300}
+            x={500}
+            y={500}
             draggable
             offsetX={car.width / 2}
             offsetY={car.height / 2}
