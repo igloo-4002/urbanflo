@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
-import { RoadDirections } from "../../context/types";
+import {
+  CanvasItemType,
+  Road,
+  RoadDirections,
+  type CanvasItem,
+} from "../../context/types";
 import { ColumnStack, RowStack } from "../Stacks";
 
 interface RoadPropertiesEditorProps {
@@ -13,27 +18,85 @@ interface RoadPropertiesEditorProps {
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
   const [speedLimit, setSpeedLimit] = useState(
-    appState.canvasState.selectedCanvasItem.speedLimit,
+    appState.canvasState.selectedCanvasItem.speedLimit || 0,
   );
   const [numLanes, setNumLanes] = useState(
-    appState.canvasState.selectedCanvasItem.lanes,
+    appState.canvasState.selectedCanvasItem.lanes || 0,
   );
   const [direction, setDirection] = useState<string>(
     appState.canvasState.selectedCanvasItem.direction || "up",
   );
 
   useEffect(() => {
-    setSpeedLimit(appState.canvasState.selectedCanvasItem.speedLimit);
-    setNumLanes(appState.canvasState.selectedCanvasItem.lanes);
+    setSpeedLimit(appState.canvasState.selectedCanvasItem.speedLimit || 0);
+    setNumLanes(appState.canvasState.selectedCanvasItem.lanes || 0);
     setDirection(appState.canvasState.selectedCanvasItem.direction || "up");
   }, [appState]);
 
   function submitRoadProperties() {
-    setAppState({
-      ...appState,
-      leftSideBarState: { isOpen: false, viewName: null },
-    });
-    console.log("onclick submitRoadProperties does nothing");
+    if (
+      appState.canvasState.selectedCanvasItem ==
+      appState.canvasState.canvasItems[0]
+    ) {
+      const canvasItemsNew: CanvasItem[] = [
+        {
+          info: {
+            type: CanvasItemType.ROAD,
+          },
+          props: {
+            alt: "Road 1",
+            image: new window.Image(),
+            x: 500,
+            y: 500,
+            draggable: true,
+            offsetX: 50,
+            offsetY: 50,
+          },
+          speedLimit: speedLimit,
+          lanes: numLanes,
+          length: 200,
+          direction: direction,
+        },
+        appState.canvasState.canvasItems[1],
+      ];
+      setAppState({
+        ...appState,
+        canvasState: {
+          canvasItems: canvasItemsNew,
+          selectedCanvasItem: appState.canvasState.canvasItems[0],
+        },
+      });
+    } else {
+      const canvasItemsNew: CanvasItem[] = [
+        appState.canvasState.canvasItems[0],
+        {
+          info: {
+            type: CanvasItemType.ROAD,
+          },
+          props: {
+            alt: "Road 2",
+            image: new window.Image(),
+            x: 420,
+            y: 420,
+            draggable: true,
+            offsetX: 50,
+            offsetY: 50,
+          },
+          speedLimit: speedLimit,
+          lanes: numLanes,
+          length: 200,
+          direction: direction,
+        },
+      ];
+
+      setAppState({
+        ...appState,
+        canvasState: {
+          canvasItems: canvasItemsNew,
+          selectedCanvasItem: appState.canvasState.canvasItems[1],
+        },
+      });
+    }
   }
 
   return (
