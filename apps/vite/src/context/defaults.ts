@@ -20,7 +20,7 @@ export const getDefaultAppState: () => AppState = () => {
       offsetY: 50,
     },
     speedLimit: 60,
-    lanes: 2,
+    lanes: 1,
     length: 200,
     direction: "up",
   };
@@ -50,6 +50,7 @@ export const getDefaultAppState: () => AppState = () => {
     },
     canvasState: {
       canvasItems: [road1, road2],
+      selectedCanvasItem: road1,
     },
     projectState: {
       isSaved: true, // when a user creates a project, it is saved by default
