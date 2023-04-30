@@ -99,6 +99,8 @@ export default function Canvas() {
         skipTransform: true,
         skipShadow: true,
       });
+      roadBounds1.width = 250;
+      roadBounds1.height = 100;
       roadBounds1.x = 500;
       roadBounds1.y = 500;
 
@@ -106,6 +108,8 @@ export default function Canvas() {
         skipTransform: true,
         skipShadow: true,
       });
+      roadBounds2.width = 100;
+      roadBounds2.height = 250;
       roadBounds2.x = 420;
       roadBounds2.y = 420;
 
