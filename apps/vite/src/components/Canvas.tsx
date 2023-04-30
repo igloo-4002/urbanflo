@@ -233,7 +233,7 @@ export default function Canvas() {
             ref={carRef}
             image={car}
             x={500}
-            y={500}
+            y={750}
             draggable
             offsetX={car.width / 2}
             offsetY={car.height / 2}
