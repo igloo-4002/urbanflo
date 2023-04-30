@@ -18,9 +18,29 @@ export default function Canvas() {
   const [roadVertical, setRoadVertical] = useState<HTMLImageElement | null>(
     null,
   );
-  const roadRef = useRef<Konva.Image>(null);
 
   const { appState, setAppState } = useContext(AppStateContext);
+
+  function updateSelectedItem(index: number): void {
+    if (index == 0) {
+      setAppState({
+        ...appState,
+        canvasState: {
+          canvasItems: appState.canvasState.canvasItems,
+          selectedCanvasItem: appState.canvasState.canvasItems[0],
+        },
+      });
+    } else {
+      setAppState({
+        ...appState,
+        canvasState: {
+          canvasItems: appState.canvasState.canvasItems,
+          selectedCanvasItem: appState.canvasState.canvasItems[1],
+        },
+      });
+    }
+  }
+  const roadRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
     const image = new window.Image();
@@ -179,6 +199,7 @@ export default function Canvas() {
                 draggable
                 offsetX={item.props.offsetX}
                 offsetY={item.props.offsetY}
+                onClick={() => updateSelectedItem(index)}
               />
             );
           } else if (
@@ -196,6 +217,7 @@ export default function Canvas() {
                 draggable
                 offsetX={item.props.offsetX}
                 offsetY={item.props.offsetY}
+                onClick={() => updateSelectedItem(index)}
               />
             );
           }
