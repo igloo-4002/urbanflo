@@ -39,13 +39,17 @@ export interface CanvasItem {
     offsetX: number;
     offsetY: number;
   };
+  speedLimit?: number;
+  lanes?: number;
+  length?: number;
+  direction?: string;
 }
 
 export interface Road extends CanvasItem {
   speedLimit: number;
   lanes: number;
   length: number;
-  direction: "horizontal" | "vertical";
+  direction: string;
 }
 
 export interface Car extends CanvasItem {
@@ -63,6 +67,7 @@ export type AppState = {
   };
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
+    selectedCanvasItem: CanvasItem;
   };
   projectState: {
     isSaved: boolean;
