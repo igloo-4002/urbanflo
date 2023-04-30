@@ -1,14 +1,38 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import AppStateContext from "../../context/AppStateContext";
 import { RoadDirections } from "../../context/types";
 import { ColumnStack, RowStack } from "../Stacks";
 
-export default function RoadPropertiesEditor() {
-  const [speedLimit, setSpeedLimit] = useState(0);
-  const [numLanes, setNumLanes] = useState(0);
-  const [direction, setDirection] = useState<string>(RoadDirections.UP);
+interface RoadPropertiesEditorProps {
+  speedLimit?: number;
+  numLanes?: number;
+  direction?: string;
+}
+
+export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
+  const { appState, setAppState } = useContext(AppStateContext);
+  const [speedLimit, setSpeedLimit] = useState(
+    appState.canvasState.selectedCanvasItem.speedLimit,
+  );
+  const [numLanes, setNumLanes] = useState(
+    appState.canvasState.selectedCanvasItem.lanes,
+  );
+  const [direction, setDirection] = useState<string>(
+    appState.canvasState.selectedCanvasItem.direction || "up",
+  );
+
+  useEffect(() => {
+    setSpeedLimit(appState.canvasState.selectedCanvasItem.speedLimit);
+    setNumLanes(appState.canvasState.selectedCanvasItem.lanes);
+    setDirection(appState.canvasState.selectedCanvasItem.direction || "up");
+  }, [appState]);
 
   function submitRoadProperties() {
+    setAppState({
+      ...appState,
+      leftSideBarState: { isOpen: false, viewName: null },
+    });
     console.log("onclick submitRoadProperties does nothing");
   }
 
