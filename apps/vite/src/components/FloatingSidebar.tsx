@@ -1,38 +1,14 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
-import { ModalViewNames } from "../context/types";
-import IntersectionPropertiesEditor from "./Modals/IntersectionPropertiesEditor";
-import RoadPropertiesEditor from "./Modals/RoadPropertiesEditor";
+import {
+  closeSidebar,
+  getViewName,
+  isSideBarOpen,
+} from "../context/utils/modal";
 
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
-
-  function closeModal() {
-    setAppState({
-      ...appState,
-      leftSideBarState: { isOpen: false, viewName: null },
-    });
-  }
-  function isSideBarOpen() {
-    return appState.leftSideBarState.isOpen;
-  }
-
-  function view() {
-    switch (appState.leftSideBarState.viewName) {
-      case null:
-        return (
-          <p>
-            appState.leftSideBarState.viewName is null but the sidebar is open -
-            make sure you are setting the view name when you open the sidebar
-          </p>
-        );
-      case ModalViewNames.ROAD_PROPERTIES_EDITOR:
-        return <RoadPropertiesEditor />;
-      case ModalViewNames.INTERSECTION_PROPERTIES_EDITOR:
-        return <IntersectionPropertiesEditor />;
-    }
-  }
 
   return (
     <div
@@ -43,7 +19,7 @@ export default function FloatingSideBar() {
         zIndex: 1000,
         maxHeight: "min-content",
         width: "200px",
-        display: isSideBarOpen() ? "flex" : "none",
+        display: isSideBarOpen(appState) ? "flex" : "none",
         justifyContent: "center",
         alignContent: "center",
         flexDirection: "column",
@@ -56,11 +32,11 @@ export default function FloatingSideBar() {
     >
       <button
         style={{ width: "100%", marginBottom: "8px" }}
-        onClick={() => closeModal()}
+        onClick={() => closeSidebar(appState, setAppState)}
       >
         Close
       </button>
-      {view()}
+      {getViewName(appState)}
     </div>
   );
 }
