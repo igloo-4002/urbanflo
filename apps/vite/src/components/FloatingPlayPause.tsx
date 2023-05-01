@@ -21,7 +21,7 @@ export default function FloatingPlayPause() {
       style={{
         position: "fixed",
         top: 15,
-        left: 500,
+        left: "50%",
         zIndex: 1000,
         backgroundColor: "#FAF9F6",
         padding: "8px 18px",
