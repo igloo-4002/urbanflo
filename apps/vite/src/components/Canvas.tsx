@@ -25,22 +25,21 @@ export default function Canvas() {
       setAppState({
         ...appState,
         canvasState: {
-          canvasItems: appState.canvasState.canvasItems,
+          ...appState.canvasState,
           selectedCanvasItem: appState.canvasState.canvasItems[0],
-          isPlaying: appState.canvasState.isPlaying,
         },
       });
     } else {
       setAppState({
         ...appState,
         canvasState: {
-          canvasItems: appState.canvasState.canvasItems,
+          ...appState.canvasState,
           selectedCanvasItem: appState.canvasState.canvasItems[1],
-          isPlaying: appState.canvasState.isPlaying,
         },
       });
     }
   }
+
   const roadRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
