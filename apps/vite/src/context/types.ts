@@ -68,6 +68,7 @@ export type AppState = {
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
     selectedCanvasItem: CanvasItem;
+    isPlaying: boolean;
   };
   projectState: {
     isSaved: boolean;

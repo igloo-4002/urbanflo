@@ -51,6 +51,7 @@ export const getDefaultAppState: () => AppState = () => {
     canvasState: {
       canvasItems: [road1, road2],
       selectedCanvasItem: road1,
+      isPlaying: false,
     },
     projectState: {
       isSaved: true, // when a user creates a project, it is saved by default
