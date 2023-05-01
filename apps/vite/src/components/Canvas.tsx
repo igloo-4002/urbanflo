@@ -9,6 +9,7 @@ import AppStateContext from "../context/AppStateContext";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
+  const { appState, setAppState } = useContext(AppStateContext);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
 
@@ -19,8 +20,6 @@ export default function Canvas() {
     null,
   );
 
-  const { appState, setAppState } = useContext(AppStateContext);
-
   function updateSelectedItem(index: number): void {
     if (index == 0) {
       setAppState({
@@ -28,6 +27,7 @@ export default function Canvas() {
         canvasState: {
           canvasItems: appState.canvasState.canvasItems,
           selectedCanvasItem: appState.canvasState.canvasItems[0],
+          isPlaying: appState.canvasState.isPlaying,
         },
       });
     } else {
@@ -36,6 +36,7 @@ export default function Canvas() {
         canvasState: {
           canvasItems: appState.canvasState.canvasItems,
           selectedCanvasItem: appState.canvasState.canvasItems[1],
+          isPlaying: appState.canvasState.isPlaying,
         },
       });
     }
@@ -113,7 +114,7 @@ export default function Canvas() {
       roadBounds2.x = 420;
       roadBounds2.y = 420;
 
-      if (keysPressed.current["ArrowUp"]) {
+      if (keysPressed.current["ArrowUp"] || appState.canvasState.isPlaying) {
         const angle = carRef.current.rotation() * (Math.PI / 180);
         const newPosition = {
           x: carRef.current.x() + step * Math.sin(angle),
@@ -183,7 +184,7 @@ export default function Canvas() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [appState]);
 
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>

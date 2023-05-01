@@ -64,6 +64,7 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         canvasState: {
           canvasItems: canvasItemsNew,
           selectedCanvasItem: canvasItemsNew[0],
+          isPlaying: appState.canvasState.isPlaying,
         },
       });
     } else {
@@ -94,6 +95,7 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         canvasState: {
           canvasItems: canvasItemsNew,
           selectedCanvasItem: canvasItemsNew[1],
+          isPlaying: appState.canvasState.isPlaying,
         },
       });
     }
