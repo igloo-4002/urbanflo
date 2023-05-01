@@ -1,9 +1,6 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
-import { ModalViewNames } from "../context/types";
-import IntersectionPropertiesEditor from "./Modals/IntersectionPropertiesEditor";
-import RoadPropertiesEditor from "./Modals/RoadPropertiesEditor";
 
 export default function FloatingPlayPause() {
   const { appState, setAppState } = useContext(AppStateContext);
@@ -26,6 +23,10 @@ export default function FloatingPlayPause() {
         top: 15,
         left: 500,
         zIndex: 1000,
+        backgroundColor: "#FAF9F6",
+        padding: "8px 18px",
+        borderRadius: "10px",
+        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
       }}
       onClick={playPause}
     >
