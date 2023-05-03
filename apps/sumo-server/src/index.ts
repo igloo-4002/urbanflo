@@ -13,8 +13,8 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-app.post("/demo", (_, res) => {
-  exec("../sumo/bin/sumo -c ./demo/demo.sumocfg", (error, stdout, stderr) => {
+app.get("/demo", (_, res) => {
+  exec("../sumo/bin/sumo -c ../demo/demo.sumocfg", (error, stdout, stderr) => {
     console.log(stdout);
     console.error(stderr);
 
