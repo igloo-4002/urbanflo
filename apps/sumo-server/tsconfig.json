@@ -8,11 +8,12 @@
     "paths": {
       "~/*": ["./src/*"]
     },
+    "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "demo/**/*", "sumo/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "demo/**/*", "src/sumo/**/*"],
+  "exclude": ["**/*.ts"]
 }
