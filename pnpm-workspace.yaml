@@ -1,8 +1,8 @@
 packages:
   - apps/nextjs
   - apps/vite
+  - apps/sumo-server
   - packages/api
   - packages/auth
   - packages/db
   - packages/config/*
-  - packages/sumo
