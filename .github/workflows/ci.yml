@@ -22,7 +22,7 @@ jobs:
       DATABASE_URL: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
     strategy:
       matrix:
-        node-version: [16, 18, 19]
+        node-version: [16, 18, 19, 20]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       fail-fast: false
     runs-on: ubuntu-latest
