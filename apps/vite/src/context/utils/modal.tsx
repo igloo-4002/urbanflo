@@ -2,16 +2,21 @@ import { type Dispatch, type SetStateAction } from "react";
 
 import IntersectionPropertiesEditor from "../../components/Modals/IntersectionPropertiesEditor";
 import RoadPropertiesEditor from "../../components/Modals/RoadPropertiesEditor";
-import { ModalViewNames, type AppState } from "../types";
+import { ModalViewNames, type AppState, type CanvasItem } from "../types";
 
 export function openSidebar(
   appState: AppState,
   setAppState: Dispatch<SetStateAction<AppState>>,
   viewName: string,
+  selectedCanvasItem: CanvasItem | null = null,
 ) {
   setAppState({
     ...appState,
     leftSideBarState: { isOpen: true, viewName },
+    canvasState: {
+      ...appState.canvasState,
+      selectedCanvasItem: selectedCanvasItem,
+    },
   });
 }
 

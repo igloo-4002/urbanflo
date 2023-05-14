@@ -7,6 +7,7 @@ import roadImageHorizontal from "../assets/roadHorizontal.png";
 import roadImageVertical from "../assets/roadVertical.png";
 import AppStateContext from "../context/AppStateContext";
 import { ModalViewNames } from "../context/types";
+import { openSidebar } from "../context/utils/modal";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
@@ -23,17 +24,12 @@ export default function Canvas() {
 
   function updateSelectedItem(index: number): void {
     if (index >= 0 && index < appState.canvasState.canvasItems.length) {
-      setAppState({
-        ...appState,
-        canvasState: {
-          ...appState.canvasState,
-          selectedCanvasItem: appState.canvasState.canvasItems[index],
-        },
-        leftSideBarState: {
-          isOpen: true,
-          viewName: ModalViewNames.ROAD_PROPERTIES_EDITOR,
-        },
-      });
+      openSidebar(
+        appState,
+        setAppState,
+        ModalViewNames.ROAD_PROPERTIES_EDITOR,
+        appState.canvasState.canvasItems[index],
+      );
     }
   }
 
