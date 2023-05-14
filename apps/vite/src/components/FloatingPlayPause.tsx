@@ -9,8 +9,7 @@ export default function FloatingPlayPause() {
     setAppState({
       ...appState,
       canvasState: {
-        canvasItems: appState.canvasState.canvasItems,
-        selectedCanvasItem: appState.canvasState.selectedCanvasItem,
+        ...appState.canvasState,
         isPlaying: !appState.canvasState.isPlaying,
       },
     });
