@@ -28,7 +28,7 @@ export default function FloatingSideBar() {
     >
       <button
         style={{ width: "100%", marginBottom: "8px" }}
-        onClick={() => closeSidebar(appState, setAppState)}
+        onClick={() => closeSidebar(appState, setAppState, true)}
       >
         Close
       </button>

@@ -23,9 +23,16 @@ export function openSidebar(
 export function closeSidebar(
   appState: AppState,
   setAppState: Dispatch<SetStateAction<AppState>>,
+  setSelectedCanvasItemToNull = false,
 ) {
   setAppState({
     ...appState,
+    canvasState: {
+      ...appState.canvasState,
+      selectedCanvasItem: setSelectedCanvasItemToNull
+        ? null
+        : appState.canvasState.selectedCanvasItem,
+    },
     leftSideBarState: { isOpen: false, viewName: null },
   });
 }
