@@ -1,11 +1,7 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
-import {
-  closeSidebar,
-  getViewName,
-  isSideBarOpen,
-} from "../context/utils/modal";
+import { closeSidebar, getView, isSideBarOpen } from "../context/utils/modal";
 
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
@@ -36,7 +32,7 @@ export default function FloatingSideBar() {
       >
         Close
       </button>
-      {getViewName(appState)}
+      {getView(appState)}
     </div>
   );
 }

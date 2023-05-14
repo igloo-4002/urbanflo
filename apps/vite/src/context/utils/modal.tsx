@@ -29,7 +29,7 @@ export function isSideBarOpen(appState: AppState) {
   return appState.leftSideBarState.isOpen;
 }
 
-export function getViewName(appState: AppState) {
+export function getView(appState: AppState) {
   switch (appState.leftSideBarState.viewName) {
     case null:
       return (
