@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import AppStateContext from "../../context/AppStateContext";
 import {
   CanvasItemType,
-  Road,
   RoadDirections,
   type CanvasItem,
 } from "../../context/types";
@@ -15,6 +14,8 @@ interface RoadPropertiesEditorProps {
   direction?: string;
 }
 
+// TODO: check if we need the props parameter
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
   const [speedLimit, setSpeedLimit] = useState(
