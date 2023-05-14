@@ -1,25 +1,12 @@
-import { Dialog } from "@headlessui/react";
 import {
   CloudArrowUpIcon,
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
 
 import Header from "~/components/Header";
-import UrbanFloBlack from "../../public/UrbanFloBlack.png";
 import CanvasImg from "../../public/canvas.png";
 import TrafficImg from "../../public/traffic.jpeg";
-
-/**
- * List of navigation buttons in the menu
- */
-const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Contact us", href: "#" },
-];
 
 const features = [
   {
@@ -43,8 +30,6 @@ const features = [
 ];
 
 export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <div>
       <div className="bg-white">

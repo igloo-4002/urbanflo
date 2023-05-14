@@ -61,7 +61,6 @@ export default function Canvas() {
       const step = 5;
       const rotationStep = 5;
 
-      const carBounds = carRef.current.getClientRect();
       const roadBounds1 = roadRef.current.getClientRect({
         skipTransform: true,
         skipShadow: true,
