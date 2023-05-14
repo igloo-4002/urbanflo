@@ -6,6 +6,7 @@ import carImage from "../assets/car.png";
 import roadImageHorizontal from "../assets/roadHorizontal.png";
 import roadImageVertical from "../assets/roadVertical.png";
 import AppStateContext from "../context/AppStateContext";
+import { ModalViewNames } from "../context/types";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
@@ -21,20 +22,16 @@ export default function Canvas() {
   );
 
   function updateSelectedItem(index: number): void {
-    if (index == 0) {
+    if (index >= 0 && index < appState.canvasState.canvasItems.length) {
       setAppState({
         ...appState,
         canvasState: {
           ...appState.canvasState,
-          selectedCanvasItem: appState.canvasState.canvasItems[0],
+          selectedCanvasItem: appState.canvasState.canvasItems[index],
         },
-      });
-    } else {
-      setAppState({
-        ...appState,
-        canvasState: {
-          ...appState.canvasState,
-          selectedCanvasItem: appState.canvasState.canvasItems[1],
+        leftSideBarState: {
+          isOpen: true,
+          viewName: ModalViewNames.ROAD_PROPERTIES_EDITOR,
         },
       });
     }
