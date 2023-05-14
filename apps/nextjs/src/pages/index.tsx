@@ -11,6 +11,9 @@ import UrbanFloBlack from "../../public/UrbanFloBlack.png";
 import CanvasImg from "../../public/canvas.png";
 import TrafficImg from "../../public/traffic.jpeg";
 
+/**
+ * List of navigation buttons in the menu
+ */
 const navigation = [
   { name: "Product", href: "#" },
   { name: "Features", href: "#" },
@@ -44,17 +47,25 @@ export default function Example() {
   return (
     <div>
       <div className="bg-white">
+        {/* Header */}
         <header className="absolute inset-x-0 top-0 z-50">
           <nav
             className="flex items-center justify-between p-6 lg:px-8"
             aria-label="Global"
           >
+            {/* urbanflo logo */}
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img className="h-8 w-auto" src={UrbanFloBlack.src} alt="" />
+                <span className="sr-only">UrbanFlo</span>
+                <img
+                  className="h-8 w-auto"
+                  src={UrbanFloBlack.src}
+                  alt="UrbanFlo logo"
+                />
               </a>
             </div>
+
+            {/* Show hamburger menu button. Only available on mobile or in screens below certain width */}
             <div className="flex lg:hidden">
               <button
                 type="button"
@@ -65,6 +76,7 @@ export default function Example() {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
+            {/* Menu buttons for wide screen. For the menu list see navigation above */}
             <div className="hidden lg:flex lg:gap-x-12">
               {navigation.map((item) => (
                 <a
@@ -76,6 +88,7 @@ export default function Example() {
                 </a>
               ))}
             </div>
+            {/* Login button on wide screen */}
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
               <a
                 href="#"
@@ -85,6 +98,7 @@ export default function Example() {
               </a>
             </div>
           </nav>
+          {/* The hamburger menu, which replaces the top menu on mobile */}
           <Dialog
             as="div"
             className="lg:hidden"
@@ -95,11 +109,11 @@ export default function Example() {
             <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-between">
                 <a href="#" className="-m-1.5 p-1.5">
-                  <span className="sr-only">Your Company</span>
+                  <span className="sr-only">UrbanFlo</span>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=orange&shade=600"
-                    alt=""
+                    src={UrbanFloBlack.src}
+                    alt="UrbanFlo logo"
                   />
                 </a>
                 <button
@@ -138,7 +152,9 @@ export default function Example() {
           </Dialog>
         </header>
 
+        {/* Headline section */}
         <div className="relative isolate px-6 pt-14 lg:px-8">
+          {/* The orange blob thingy on the background */}
           <div
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true"
@@ -199,6 +215,7 @@ export default function Example() {
           </div>
         </div>
       </div>
+      {/* Features section */}
       <div className="overflow-hidden bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -214,6 +231,7 @@ export default function Example() {
                   Create your models on a canvas and see them come to life with
                   the click of a button.
                 </p>
+                {/* Feature list */}
                 <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                   {features.map((feature) => (
                     <div key={feature.name} className="relative pl-9">
@@ -240,6 +258,8 @@ export default function Example() {
           </div>
         </div>
       </div>
+
+      {/* The bottom section */}
       <div className="bg-white">
         <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
           <div className="bg-#FE747E relative isolate overflow-hidden bg-slate-600 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
