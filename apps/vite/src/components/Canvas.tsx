@@ -195,6 +195,7 @@ export default function Canvas() {
           ) {
             return (
               <Image
+                alt={"road"}
                 key={index}
                 image={roadHorizontal}
                 x={item.props.x}
@@ -212,6 +213,7 @@ export default function Canvas() {
           ) {
             return (
               <Image
+                alt={"road"}
                 key={index}
                 ref={roadRef}
                 image={roadVertical}
