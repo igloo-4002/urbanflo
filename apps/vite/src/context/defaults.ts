@@ -1,9 +1,4 @@
-import {
-  CanvasItemType,
-  ModalViewNames,
-  type AppState,
-  type Road,
-} from "./types";
+import { CanvasItemType, type AppState, type Road } from "./types";
 
 export const getDefaultAppState: () => AppState = () => {
   const road1: Road = {
