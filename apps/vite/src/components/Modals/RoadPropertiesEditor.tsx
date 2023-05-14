@@ -18,20 +18,21 @@ interface RoadPropertiesEditorProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
+
   const [speedLimit, setSpeedLimit] = useState(
-    appState.canvasState.selectedCanvasItem.speedLimit || 0,
+    appState.canvasState.selectedCanvasItem?.speedLimit || 0,
   );
   const [numLanes, setNumLanes] = useState(
-    appState.canvasState.selectedCanvasItem.lanes || 0,
+    appState.canvasState.selectedCanvasItem?.lanes || 0,
   );
   const [direction, setDirection] = useState<string>(
-    appState.canvasState.selectedCanvasItem.direction || "up",
+    appState.canvasState.selectedCanvasItem?.direction || "up",
   );
 
   useEffect(() => {
-    setSpeedLimit(appState.canvasState.selectedCanvasItem.speedLimit || 0);
-    setNumLanes(appState.canvasState.selectedCanvasItem.lanes || 0);
-    setDirection(appState.canvasState.selectedCanvasItem.direction || "up");
+    setSpeedLimit(appState.canvasState.selectedCanvasItem?.speedLimit || 0);
+    setNumLanes(appState.canvasState.selectedCanvasItem?.lanes || 0);
+    setDirection(appState.canvasState.selectedCanvasItem?.direction || "up");
   }, [appState]);
 
   function submitRoadProperties() {

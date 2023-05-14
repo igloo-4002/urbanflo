@@ -67,7 +67,7 @@ export type AppState = {
   };
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
-    selectedCanvasItem: CanvasItem;
+    selectedCanvasItem: CanvasItem | null;
     isPlaying: boolean;
   };
   projectState: {
