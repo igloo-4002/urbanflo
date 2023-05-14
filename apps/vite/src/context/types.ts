@@ -1,15 +1,33 @@
 import { type RefObject } from "react";
 import { type Image } from "react-konva";
 
-export enum CanvasItemType {
-  ROAD = "road",
-  CAR = "car",
-  TRAFFIC_LIGHT = "traffic-light",
-}
+export const CanvasItemType = {
+  ROAD: "road",
+  CAR: "car",
+  TRAFFIC_LIGHT: "traffic-light",
+} as const;
 
-export type CanvasItem = {
+export const ModalViewNames = {
+  ROAD_PROPERTIES_EDITOR: "road-properties-editor",
+  INTERSECTION_PROPERTIES_EDITOR: "intersection-properties-editor",
+} as const;
+
+/**
+ * Usage of `RoadDirections` is as follows:
+ * If a direction is specified, then the direction of road travel would be towards that direction.
+ *
+ * For example, RoadDirections.UP would mean that the road is travelling from bottom to top.
+ */
+export const RoadDirections = {
+  UP: "up",
+  DOWN: "down",
+  LEFT: "left",
+  RIGHT: "right",
+} as const;
+
+export interface CanvasItem {
   info: {
-    type: CanvasItemType;
+    type: string;
   };
   props: {
     alt: string;
@@ -21,7 +39,27 @@ export type CanvasItem = {
     offsetX: number;
     offsetY: number;
   };
-};
+  speedLimit?: number;
+  lanes?: number;
+  length?: number;
+  direction?: string;
+}
+
+export interface Road extends CanvasItem {
+  speedLimit: number;
+  lanes: number;
+  length: number;
+  direction: string;
+}
+
+export interface Car extends CanvasItem {
+  speed: number;
+  direction: "horizontal" | "vertical";
+}
+
+export interface Intersection extends CanvasItem {
+  connectingRoads: number[];
+}
 
 export type AppState = {
   projectInfo: {
@@ -29,8 +67,14 @@ export type AppState = {
   };
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
+    selectedCanvasItem: CanvasItem | null;
+    isPlaying: boolean;
   };
   projectState: {
     isSaved: boolean;
+  };
+  leftSideBarState: {
+    viewName: string | null;
+    isOpen: boolean;
   };
 };
