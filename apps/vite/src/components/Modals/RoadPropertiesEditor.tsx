@@ -1,11 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
-import {
-  CanvasItemType,
-  RoadDirections,
-  type CanvasItem,
-} from "../../context/types";
+import { RoadDirections, type Road } from "../../context/types";
 import { ColumnStack, RowStack } from "../Stacks";
 
 interface RoadPropertiesEditorProps {
@@ -19,88 +15,46 @@ interface RoadPropertiesEditorProps {
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
 
-  const [speedLimit, setSpeedLimit] = useState(
-    appState.canvasState.selectedCanvasItem?.speedLimit || 0,
-  );
-  const [numLanes, setNumLanes] = useState(
-    appState.canvasState.selectedCanvasItem?.lanes || 0,
-  );
-  const [direction, setDirection] = useState<string>(
-    appState.canvasState.selectedCanvasItem?.direction || "up",
-  );
+  const [newSpeedLimit, setNewSpeedLimit] = useState(0);
+  const [newLanes, setNewLanes] = useState(0);
+  const [newDirection, setNewDirection] = useState<string>("up");
 
   useEffect(() => {
-    setSpeedLimit(appState.canvasState.selectedCanvasItem?.speedLimit || 0);
-    setNumLanes(appState.canvasState.selectedCanvasItem?.lanes || 0);
-    setDirection(appState.canvasState.selectedCanvasItem?.direction || "up");
-  }, [appState]);
+    const { speedLimit, lanes, direction } = appState.canvasState
+      .selectedCanvasItem as Road;
+
+    setNewSpeedLimit(speedLimit);
+    setNewLanes(lanes);
+    setNewDirection(direction);
+  }, [appState.canvasState.selectedCanvasItem]);
 
   function submitRoadProperties() {
-    if (
-      appState.canvasState.selectedCanvasItem ==
-      appState.canvasState.canvasItems[0]
-    ) {
-      const canvasItemsNew: CanvasItem[] = [
-        {
-          info: {
-            type: CanvasItemType.ROAD,
-          },
-          props: {
-            alt: "Road 1",
-            image: new window.Image(),
-            x: 500,
-            y: 500,
-            draggable: true,
-            offsetX: 50,
-            offsetY: 50,
-          },
-          speedLimit: speedLimit,
-          lanes: numLanes,
-          length: 200,
-          direction: direction,
-        },
-        appState.canvasState.canvasItems[1],
-      ];
-      setAppState({
-        ...appState,
-        canvasState: {
-          canvasItems: canvasItemsNew,
-          selectedCanvasItem: canvasItemsNew[0],
-          isPlaying: appState.canvasState.isPlaying,
-        },
-      });
-    } else {
-      const canvasItemsNew: CanvasItem[] = [
-        appState.canvasState.canvasItems[0],
-        {
-          info: {
-            type: CanvasItemType.ROAD,
-          },
-          props: {
-            alt: "Road 2",
-            image: new window.Image(),
-            x: 420,
-            y: 420,
-            draggable: true,
-            offsetX: 50,
-            offsetY: 50,
-          },
-          speedLimit: speedLimit,
-          lanes: numLanes,
-          length: 200,
-          direction: direction,
-        },
-      ];
+    const updatedProperties: Partial<Road> = {
+      speedLimit: newSpeedLimit,
+      lanes: newLanes,
+      direction: newDirection,
+    };
 
-      setAppState({
-        ...appState,
-        canvasState: {
-          canvasItems: canvasItemsNew,
-          selectedCanvasItem: canvasItemsNew[1],
-          isPlaying: appState.canvasState.isPlaying,
-        },
-      });
-    }
+    const updatedRoad: Road = {
+      ...(appState.canvasState.selectedCanvasItem as Road),
+      ...updatedProperties,
+    };
+
+    const updatedCanvasItems = appState.canvasState.canvasItems.map((item) => {
+      if (item.id === appState.canvasState.selectedCanvasItem?.id) {
+        return updatedRoad;
+      }
+      return item;
+    });
+
+    setAppState({
+      ...appState,
+      canvasState: {
+        ...appState.canvasState,
+        canvasItems: updatedCanvasItems,
+        selectedCanvasItem: updatedRoad,
+      },
+    });
   }
 
   return (
@@ -110,8 +64,8 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         <input
           style={{ width: "30%" }}
           type="number"
-          value={speedLimit}
-          onChange={(e) => setSpeedLimit(parseInt(e.target.value))}
+          value={newSpeedLimit}
+          onChange={(e) => setNewSpeedLimit(parseInt(e.target.value))}
         />
       </RowStack>
       <RowStack>
@@ -119,15 +73,15 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         <input
           style={{ width: "30%" }}
           type="number"
-          value={numLanes}
-          onChange={(e) => setNumLanes(parseInt(e.target.value))}
+          value={newLanes}
+          onChange={(e) => setNewLanes(parseInt(e.target.value))}
         />
       </RowStack>
       <RowStack>
         <p>Direction</p>
         <select
-          value={direction}
-          onChange={(e) => setDirection(e.target.value)}
+          value={newDirection}
+          onChange={(e) => setNewDirection(e.target.value)}
         >
           <option value={`${RoadDirections.UP}`}>Up</option>
           <option value={`${RoadDirections.DOWN}`}>Down</option>

@@ -1,12 +1,14 @@
-import { CanvasItemType, type AppState, type Road } from "./types";
+import { createId } from "@paralleldrive/cuid2";
+
+import { CanvasItemType, type AppState, type Car, type Road } from "./types";
 
 export const getDefaultAppState: () => AppState = () => {
   const road1: Road = {
+    id: createId(),
     info: {
       type: CanvasItemType.ROAD,
     },
     props: {
-      alt: "Road 1",
       image: new window.Image(),
       x: 500,
       y: 500,
@@ -21,11 +23,11 @@ export const getDefaultAppState: () => AppState = () => {
   };
 
   const road2: Road = {
+    id: createId(),
     info: {
       type: CanvasItemType.ROAD,
     },
     props: {
-      alt: "Road 2",
       image: new window.Image(),
       x: 420,
       y: 420,
@@ -39,12 +41,29 @@ export const getDefaultAppState: () => AppState = () => {
     direction: "left",
   };
 
+  const car: Car = {
+    id: createId(),
+    info: {
+      type: CanvasItemType.CAR,
+    },
+    props: {
+      image: new window.Image(),
+      x: 500,
+      y: 750,
+      draggable: true,
+      offsetX: 25,
+      offsetY: 62.5,
+    },
+    speed: 0,
+    direction: "vertical",
+  };
+
   return {
     projectInfo: {
       name: "untitled",
     },
     canvasState: {
-      canvasItems: [road1, road2],
+      canvasItems: [road1, road2, car],
       selectedCanvasItem: null,
       isPlaying: false,
     },

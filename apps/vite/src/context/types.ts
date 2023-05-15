@@ -1,6 +1,3 @@
-import { type RefObject } from "react";
-import { type Image } from "react-konva";
-
 export const CanvasItemType = {
   ROAD: "road",
   CAR: "car",
@@ -26,12 +23,11 @@ export const RoadDirections = {
 } as const;
 
 export interface CanvasItem {
+  id: string;
   info: {
     type: string;
   };
   props: {
-    alt: string;
-    ref?: RefObject<typeof Image>;
     image: HTMLImageElement;
     x: number;
     y: number;
@@ -39,35 +35,39 @@ export interface CanvasItem {
     offsetX: number;
     offsetY: number;
   };
-  speedLimit?: number;
-  lanes?: number;
-  length?: number;
-  direction?: string;
 }
 
-export interface Road extends CanvasItem {
+export interface RoadFields {
   speedLimit: number;
   lanes: number;
   length: number;
   direction: string;
 }
 
-export interface Car extends CanvasItem {
+export type Road = CanvasItem & RoadFields;
+
+export interface CarFields {
   speed: number;
   direction: "horizontal" | "vertical";
 }
 
-export interface Intersection extends CanvasItem {
+export type Car = CanvasItem & CarFields;
+
+export interface IntersectionFields {
   connectingRoads: number[];
 }
+
+export type Intersection = IntersectionFields & CanvasItem;
+
+export type CanvasItemTypes = Road | Car | Intersection;
 
 export type AppState = {
   projectInfo: {
     name: string; // Normal Project settings, e.g. name, description, etc.
   };
   canvasState: {
-    canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
-    selectedCanvasItem: CanvasItem | null;
+    canvasItems: CanvasItemTypes[]; // Roads, Cars, traffic lights, etc.
+    selectedCanvasItem: CanvasItemTypes | null;
     isPlaying: boolean;
   };
   projectState: {
