@@ -3,20 +3,17 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
-
 import roadImageHorizontal from "../assets/roadHorizontal.png";
 import roadImageVertical from "../assets/roadVertical.png";
 import AppStateContext from "../context/AppStateContext";
 import { ModalViewNames } from "../context/types";
 import { openSidebar } from "../context/utils/modal";
 
-
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
   const { appState, setAppState } = useContext(AppStateContext);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
-
 
   const [roadHorizontal, setRoadHorizontal] = useState<HTMLImageElement | null>(
     null,
@@ -49,7 +46,6 @@ export default function Canvas() {
   }, []);
 
   useEffect(() => {
-
     const imageHorizontal = new window.Image();
     imageHorizontal.src = roadImageHorizontal;
     imageHorizontal.width = 250;
@@ -75,12 +71,6 @@ export default function Canvas() {
       carRef.current.getLayer()?.batchDraw();
     }
   }, [car]);
-
-  useEffect(() => {
-    if (roadRef.current) {
-      roadRef.current.rotation(90);
-    }
-  }, [road]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -192,7 +182,6 @@ export default function Canvas() {
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-
         {appState.canvasState.canvasItems.map((item, index) => {
           if (
             item.info.type === "road" &&
