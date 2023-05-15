@@ -1,7 +1,10 @@
+import { createId } from "@paralleldrive/cuid2";
+
 import { CanvasItemType, type AppState, type Road } from "./types";
 
 export const getDefaultAppState: () => AppState = () => {
   const road1: Road = {
+    id: createId(),
     info: {
       type: CanvasItemType.ROAD,
     },
@@ -21,6 +24,7 @@ export const getDefaultAppState: () => AppState = () => {
   };
 
   const road2: Road = {
+    id: createId(),
     info: {
       type: CanvasItemType.ROAD,
     },

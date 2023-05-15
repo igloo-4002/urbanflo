@@ -26,6 +26,7 @@ export const RoadDirections = {
 } as const;
 
 export interface CanvasItem {
+  id: string;
   info: {
     type: string;
   };
