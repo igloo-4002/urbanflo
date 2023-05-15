@@ -32,13 +32,11 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
       lanes: newLanes,
       direction: newDirection,
     };
-    console.log("updatedProperties: ", updatedProperties);
 
     const updatedRoad: Road = {
       ...(appState.canvasState.selectedCanvasItem as Road),
       ...updatedProperties,
     };
-    console.log("updatedRoad: ", updatedRoad);
 
     const updatedCanvasItems: CanvasItem[] =
       appState.canvasState.canvasItems.map((item) => {
@@ -48,7 +46,6 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         return item;
       });
 
-    console.log("updatedCanvasItems: ", updatedCanvasItems);
     setAppState({
       ...appState,
       canvasState: {
