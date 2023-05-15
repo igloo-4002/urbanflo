@@ -6,5 +6,4 @@ export interface CanvasItemProps {
   draggable: string;
   offsetX: number;
   offsetY: number;
-  onClick: (index: number) => void;
 }

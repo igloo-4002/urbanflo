@@ -21,7 +21,6 @@ export function Intersection(props: IntersectionProps) {
       draggable
       offsetX={canvasProps.offsetX}
       offsetY={canvasProps.offsetY}
-      onClick={() => canvasProps.onClick(canvasProps.index)}
     />
   );
 }

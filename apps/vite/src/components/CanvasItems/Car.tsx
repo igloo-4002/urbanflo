@@ -21,7 +21,6 @@ export function Car(props: CarProps) {
       draggable
       offsetX={canvasProps.offsetX}
       offsetY={canvasProps.offsetY}
-      onClick={() => canvasProps.onClick(canvasProps.index)}
     />
   );
 }
