@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Image } from "react-konva";
 
+import roadImageHorizontal from "../../assets/roadHorizontal.png";
+import roadImageVertical from "../../assets/roadVertical.png";
 import { type RoadFields } from "../../context/types";
-import roadImageHorizontal from "../assets/roadHorizontal.png";
-import roadImageVertical from "../assets/roadVertical.png";
 import { type CanvasItemProps } from "./types";
 
 export interface RoadProps {
