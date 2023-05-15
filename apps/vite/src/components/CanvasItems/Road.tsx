@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image } from "react-konva";
 
 import roadImageHorizontal from "../../assets/roadHorizontal.png";
 import roadImageVertical from "../../assets/roadVertical.png";
-import { RoadDirections, type RoadFields } from "../../context/types";
+import AppStateContext from "../../context/AppStateContext";
+import {
+  ModalViewNames,
+  RoadDirections,
+  type RoadFields,
+} from "../../context/types";
+import { openSidebar } from "../../context/utils/modal";
 import { type CanvasItemProps } from "./types";
 
 export interface RoadProps {
@@ -12,6 +18,8 @@ export interface RoadProps {
 }
 
 export function Road(props: RoadProps) {
+  const { appState, setAppState } = useContext(AppStateContext);
+
   const canvasProps: CanvasItemProps = props.canvasProps;
   const roadFields: RoadFields = props.roadFields;
 
@@ -37,6 +45,17 @@ export function Road(props: RoadProps) {
     };
   }, [isHorizontal, roadFields.direction, verticalHeight, verticalWidth]);
 
+  function updateSelectedItem(index: number): void {
+    if (index >= 0 && index < appState.canvasState.canvasItems.length) {
+      openSidebar(
+        appState,
+        setAppState,
+        ModalViewNames.ROAD_PROPERTIES_EDITOR,
+        appState.canvasState.canvasItems[index],
+      );
+    }
+  }
+
   return image ? (
     <Image
       alt={"road"}
@@ -47,6 +66,7 @@ export function Road(props: RoadProps) {
       draggable={false}
       offsetX={canvasProps.offsetX}
       offsetY={canvasProps.offsetY}
+      onClick={() => updateSelectedItem(canvasProps.index)}
     />
   ) : null;
 }
