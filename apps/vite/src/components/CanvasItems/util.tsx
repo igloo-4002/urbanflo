@@ -49,28 +49,6 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
 
   return (
     <>
-      {cars.map((car: CanvasItemRenderElement<Car>) => {
-        const currentCar = canvasItems[car.canvasItemsIndex] as Car;
-
-        return (
-          <CarComponent
-            key={car.canvasItemsIndex}
-            carFields={{
-              speed: currentCar.speed,
-              direction: currentCar.direction,
-            }}
-            canvasProps={{
-              index: car.canvasItemsIndex,
-              x: car.element.props.x,
-              y: car.element.props.y,
-              draggable: car.element.props.draggable,
-              offsetX: car.element.props.offsetX,
-              offsetY: car.element.props.offsetY,
-            }}
-          ></CarComponent>
-        );
-      })}
-
       {roads.map((road: CanvasItemRenderElement<Road>) => {
         const currentRoad = canvasItems[road.canvasItemsIndex] as Road;
 
@@ -92,6 +70,29 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
               offsetY: road.element.props.offsetY,
             }}
           ></RoadComponent>
+        );
+      })}
+
+      {/* Render cars at the end so they are above all other items in terms */}
+      {cars.map((car: CanvasItemRenderElement<Car>) => {
+        const currentCar = canvasItems[car.canvasItemsIndex] as Car;
+
+        return (
+          <CarComponent
+            key={car.canvasItemsIndex}
+            carFields={{
+              speed: currentCar.speed,
+              direction: currentCar.direction,
+            }}
+            canvasProps={{
+              index: car.canvasItemsIndex,
+              x: car.element.props.x,
+              y: car.element.props.y,
+              draggable: car.element.props.draggable,
+              offsetX: car.element.props.offsetX,
+              offsetY: car.element.props.offsetY,
+            }}
+          ></CarComponent>
         );
       })}
     </>
