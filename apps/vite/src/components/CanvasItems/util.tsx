@@ -6,6 +6,7 @@ import {
   type Road,
 } from "../../context/types";
 import { Car as CarComponent } from "./Car";
+import { Road as RoadComponent } from "./Road";
 
 export function isRoad(canvasItem: CanvasItemTypes): canvasItem is Road {
   return canvasItem.info.type === CanvasItemType.ROAD;
@@ -71,6 +72,30 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
               offsetY: car.element.props.offsetY,
             }}
           ></CarComponent>
+        );
+      })}
+
+      {roads.map((road: CanvasItemRenderElement<Road>) => {
+        const currentRoad = canvasItems[road.canvasItemsIndex] as Road;
+
+        return (
+          <RoadComponent
+            key={road.canvasItemsIndex}
+            roadFields={{
+              direction: currentRoad.direction,
+              speedLimit: currentRoad.speedLimit,
+              lanes: currentRoad.lanes,
+              length: currentRoad.length,
+            }}
+            canvasProps={{
+              index: road.canvasItemsIndex,
+              x: road.element.props.x,
+              y: road.element.props.y,
+              draggable: road.element.props.draggable,
+              offsetX: road.element.props.offsetX,
+              offsetY: road.element.props.offsetY,
+            }}
+          ></RoadComponent>
         );
       })}
     </>
