@@ -45,11 +45,7 @@ function filterCanvasItems<T>(
 export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
   const cars = filterCanvasItems<Car>(canvasItems, isCar);
   const roads = filterCanvasItems<Road>(canvasItems, isRoad);
-  const intersections = filterCanvasItems<Road>(canvasItems, isIntersection);
-
-  console.log("cars: ", cars);
-  console.log("roads: ", roads);
-  console.log("intersections: ", intersections);
+  const _intersections = filterCanvasItems<Road>(canvasItems, isIntersection);
 
   return (
     <>
