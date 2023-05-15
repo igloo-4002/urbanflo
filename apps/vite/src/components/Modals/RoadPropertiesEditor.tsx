@@ -1,11 +1,7 @@
 import { useContext, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
-import {
-  RoadDirections,
-  type CanvasItem,
-  type Road,
-} from "../../context/types";
+import { RoadDirections, type Road } from "../../context/types";
 import { ColumnStack, RowStack } from "../Stacks";
 
 interface RoadPropertiesEditorProps {
