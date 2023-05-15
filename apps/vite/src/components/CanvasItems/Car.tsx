@@ -17,8 +17,8 @@ export function Car(props: CarProps) {
   useEffect(() => {
     const img = new window.Image();
     img.src = carImage;
-    img.width = 250;
-    img.height = 100;
+    img.width = 50;
+    img.height = 125;
     img.onload = () => {
       setImage(img);
     };
