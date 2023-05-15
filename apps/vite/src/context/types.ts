@@ -1,6 +1,3 @@
-import { type RefObject } from "react";
-import { type Image } from "react-konva";
-
 export const CanvasItemType = {
   ROAD: "road",
   CAR: "car",
@@ -31,8 +28,6 @@ export interface CanvasItem {
     type: string;
   };
   props: {
-    alt: string;
-    ref?: RefObject<typeof Image>;
     image: HTMLImageElement;
     x: number;
     y: number;
