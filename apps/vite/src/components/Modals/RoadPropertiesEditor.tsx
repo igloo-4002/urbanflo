@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
 import {
-  CanvasItemType,
   RoadDirections,
   type CanvasItem,
+  type Road,
 } from "../../context/types";
 import { ColumnStack, RowStack } from "../Stacks";
 
@@ -36,71 +36,33 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   }, [appState]);
 
   function submitRoadProperties() {
-    if (
-      appState.canvasState.selectedCanvasItem ==
-      appState.canvasState.canvasItems[0]
-    ) {
-      const canvasItemsNew: CanvasItem[] = [
-        {
-          info: {
-            type: CanvasItemType.ROAD,
-          },
-          props: {
-            alt: "Road 1",
-            image: new window.Image(),
-            x: 500,
-            y: 500,
-            draggable: true,
-            offsetX: 50,
-            offsetY: 50,
-          },
-          speedLimit: speedLimit,
-          lanes: numLanes,
-          length: 200,
-          direction: direction,
-        },
-        appState.canvasState.canvasItems[1],
-      ];
-      setAppState({
-        ...appState,
-        canvasState: {
-          canvasItems: canvasItemsNew,
-          selectedCanvasItem: canvasItemsNew[0],
-          isPlaying: appState.canvasState.isPlaying,
-        },
-      });
-    } else {
-      const canvasItemsNew: CanvasItem[] = [
-        appState.canvasState.canvasItems[0],
-        {
-          info: {
-            type: CanvasItemType.ROAD,
-          },
-          props: {
-            alt: "Road 2",
-            image: new window.Image(),
-            x: 420,
-            y: 420,
-            draggable: true,
-            offsetX: 50,
-            offsetY: 50,
-          },
-          speedLimit: speedLimit,
-          lanes: numLanes,
-          length: 200,
-          direction: direction,
-        },
-      ];
+    const updatedProperties: Partial<Road> = {
+      speedLimit: speedLimit,
+      lanes: numLanes,
+      direction: direction,
+    };
 
-      setAppState({
-        ...appState,
-        canvasState: {
-          canvasItems: canvasItemsNew,
-          selectedCanvasItem: canvasItemsNew[1],
-          isPlaying: appState.canvasState.isPlaying,
-        },
+    const updatedRoad: Road = {
+      ...(appState.canvasState.selectedCanvasItem as Road),
+      ...updatedProperties,
+    };
+
+    const updatedCanvasItems: CanvasItem[] =
+      appState.canvasState.canvasItems.map((item) => {
+        if (item === appState.canvasState.selectedCanvasItem) {
+          return updatedRoad;
+        }
+        return item;
       });
-    }
+
+    setAppState({
+      ...appState,
+      canvasState: {
+        ...appState.canvasState,
+        canvasItems: updatedCanvasItems,
+        selectedCanvasItem: updatedRoad,
+      },
+    });
   }
 
   return (
