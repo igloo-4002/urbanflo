@@ -23,7 +23,7 @@ export function isCar(canvasItem: CanvasItemTypes): canvasItem is Car {
 
 type CanvasItemRenderElement<T> = {
   element: T;
-  index: number;
+  canvasItemsIndex: number;
 };
 
 function filterCanvasItems<T>(
@@ -34,7 +34,7 @@ function filterCanvasItems<T>(
 
   for (let i = 0; i < canvasItems.length; i++) {
     if (predicate(canvasItems[i])) {
-      items.push({ element: canvasItems[i] as T, index: i });
+      items.push({ element: canvasItems[i] as T, canvasItemsIndex: i });
     }
   }
 
