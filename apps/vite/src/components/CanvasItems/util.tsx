@@ -53,7 +53,7 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
   return (
     <>
       {cars.map((car: CanvasItemRenderElement<Car>) => {
-        const currentCar: Car = canvasItems[car.canvasItemsIndex] as Car;
+        const currentCar = canvasItems[car.canvasItemsIndex] as Car;
 
         return (
           <CarComponent
