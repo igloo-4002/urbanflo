@@ -45,4 +45,8 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
   const cars = filterCanvasItems<Car>(canvasItems, isCar);
   const roads = filterCanvasItems<Road>(canvasItems, isRoad);
   const intersections = filterCanvasItems<Road>(canvasItems, isIntersection);
+
+  console.log(cars);
+  console.log(roads);
+  console.log(intersections);
 }
