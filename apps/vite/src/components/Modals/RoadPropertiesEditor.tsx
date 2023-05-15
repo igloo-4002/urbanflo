@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
 import { RoadDirections, type Road } from "../../context/types";
@@ -15,12 +15,18 @@ interface RoadPropertiesEditorProps {
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
 
-  const { speedLimit, lanes, direction } = appState.canvasState
-    .selectedCanvasItem as Road;
+  const [newSpeedLimit, setNewSpeedLimit] = useState(0);
+  const [newLanes, setNewLanes] = useState(0);
+  const [newDirection, setNewDirection] = useState<string>("up");
 
-  const [newSpeedLimit, setNewSpeedLimit] = useState(speedLimit || 0);
-  const [newLanes, setNewLanes] = useState(lanes || 0);
-  const [newDirection, setNewDirection] = useState<string>(direction || "up");
+  useEffect(() => {
+    const { speedLimit, lanes, direction } = appState.canvasState
+      .selectedCanvasItem as Road;
+
+    setNewSpeedLimit(speedLimit);
+    setNewLanes(lanes);
+    setNewDirection(direction);
+  }, [appState.canvasState.selectedCanvasItem]);
 
   function submitRoadProperties() {
     const updatedProperties: Partial<Road> = {
