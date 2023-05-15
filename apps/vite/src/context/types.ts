@@ -39,10 +39,6 @@ export interface CanvasItem {
     offsetX: number;
     offsetY: number;
   };
-  speedLimit?: number;
-  lanes?: number;
-  length?: number;
-  direction?: string;
 }
 
 export interface Road extends CanvasItem {
@@ -61,13 +57,15 @@ export interface Intersection extends CanvasItem {
   connectingRoads: number[];
 }
 
+export type CanvasItemTypes = Road | Car | Intersection;
+
 export type AppState = {
   projectInfo: {
     name: string; // Normal Project settings, e.g. name, description, etc.
   };
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
-    selectedCanvasItem: CanvasItem | null;
+    selectedCanvasItem: CanvasItemTypes | null;
     isPlaying: boolean;
   };
   projectState: {

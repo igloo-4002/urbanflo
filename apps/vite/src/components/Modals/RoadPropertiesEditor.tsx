@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import AppStateContext from "../../context/AppStateContext";
 import {
@@ -19,33 +19,26 @@ interface RoadPropertiesEditorProps {
 export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
   const { appState, setAppState } = useContext(AppStateContext);
 
-  const [speedLimit, setSpeedLimit] = useState(
-    appState.canvasState.selectedCanvasItem?.speedLimit || 0,
-  );
-  const [numLanes, setNumLanes] = useState(
-    appState.canvasState.selectedCanvasItem?.lanes || 0,
-  );
-  const [direction, setDirection] = useState<string>(
-    appState.canvasState.selectedCanvasItem?.direction || "up",
-  );
+  const { speedLimit, lanes, direction } = appState.canvasState
+    .selectedCanvasItem as Road;
 
-  useEffect(() => {
-    setSpeedLimit(appState.canvasState.selectedCanvasItem?.speedLimit || 0);
-    setNumLanes(appState.canvasState.selectedCanvasItem?.lanes || 0);
-    setDirection(appState.canvasState.selectedCanvasItem?.direction || "up");
-  }, [appState]);
+  const [newSpeedLimit, setNewSpeedLimit] = useState(speedLimit || 0);
+  const [newLanes, setNewLanes] = useState(lanes || 0);
+  const [newDirection, setNewDirection] = useState<string>(direction || "up");
 
   function submitRoadProperties() {
     const updatedProperties: Partial<Road> = {
-      speedLimit: speedLimit,
-      lanes: numLanes,
-      direction: direction,
+      speedLimit: newSpeedLimit,
+      lanes: newLanes,
+      direction: newDirection,
     };
+    console.log("updatedProperties: ", updatedProperties);
 
     const updatedRoad: Road = {
       ...(appState.canvasState.selectedCanvasItem as Road),
       ...updatedProperties,
     };
+    console.log("updatedRoad: ", updatedRoad);
 
     const updatedCanvasItems: CanvasItem[] =
       appState.canvasState.canvasItems.map((item) => {
@@ -55,6 +48,7 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         return item;
       });
 
+    console.log("updatedCanvasItems: ", updatedCanvasItems);
     setAppState({
       ...appState,
       canvasState: {
@@ -72,8 +66,8 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         <input
           style={{ width: "30%" }}
           type="number"
-          value={speedLimit}
-          onChange={(e) => setSpeedLimit(parseInt(e.target.value))}
+          value={newSpeedLimit}
+          onChange={(e) => setNewSpeedLimit(parseInt(e.target.value))}
         />
       </RowStack>
       <RowStack>
@@ -81,15 +75,15 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
         <input
           style={{ width: "30%" }}
           type="number"
-          value={numLanes}
-          onChange={(e) => setNumLanes(parseInt(e.target.value))}
+          value={newLanes}
+          onChange={(e) => setNewLanes(parseInt(e.target.value))}
         />
       </RowStack>
       <RowStack>
         <p>Direction</p>
         <select
-          value={direction}
-          onChange={(e) => setDirection(e.target.value)}
+          value={newDirection}
+          onChange={(e) => setNewDirection(e.target.value)}
         >
           <option value={`${RoadDirections.UP}`}>Up</option>
           <option value={`${RoadDirections.DOWN}`}>Down</option>
