@@ -9,7 +9,6 @@ export const getDefaultAppState: () => AppState = () => {
       type: CanvasItemType.ROAD,
     },
     props: {
-      alt: "Road 1",
       image: new window.Image(),
       x: 500,
       y: 500,
@@ -29,7 +28,6 @@ export const getDefaultAppState: () => AppState = () => {
       type: CanvasItemType.ROAD,
     },
     props: {
-      alt: "Road 2",
       image: new window.Image(),
       x: 420,
       y: 420,
