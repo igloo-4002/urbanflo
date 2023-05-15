@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+import { Dialog } from "@headlessui/react";
+
 import {
   CloudArrowUpIcon,
   LockClosedIcon,

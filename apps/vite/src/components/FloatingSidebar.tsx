@@ -1,39 +1,10 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
-import { ModalViewNames } from "../context/types";
+import { closeSidebar, getView, isSideBarOpen } from "../context/utils/modal";
 
 export default function FloatingSideBar() {
   const { appState, setAppState } = useContext(AppStateContext);
-
-  function closeModal() {
-    setAppState({
-      ...appState,
-      leftSideBarState: { isOpen: false, viewName: null },
-    });
-  }
-  function isSideBarOpen() {
-    return appState.leftSideBarState.isOpen;
-  }
-
-  function view() {
-    switch (appState.leftSideBarState.viewName) {
-      case null:
-        return (
-          <>
-            <p>
-              appState.leftSideBarState.viewName is null but the sidebar is open
-              - make sure you are setting the view name when you open the
-              sidebar
-            </p>
-          </>
-        );
-      case ModalViewNames.ROAD_PROPERTY_EDITOR:
-        return <></>;
-      case ModalViewNames.INTERSECTION_PROPERTY_EDITOR:
-        return <></>;
-    }
-  }
 
   return (
     <div
@@ -44,7 +15,7 @@ export default function FloatingSideBar() {
         zIndex: 1000,
         maxHeight: "min-content",
         width: "200px",
-        display: isSideBarOpen() ? "flex" : "none",
+        display: isSideBarOpen(appState) ? "flex" : "none",
         justifyContent: "center",
         alignContent: "center",
         flexDirection: "column",
@@ -55,10 +26,13 @@ export default function FloatingSideBar() {
         overflowWrap: "break-word",
       }}
     >
-      <button style={{ width: "100%" }} onClick={() => closeModal()}>
+      <button
+        style={{ width: "100%", marginBottom: "8px" }}
+        onClick={() => closeSidebar(appState, setAppState, true)}
+      >
         Close
       </button>
-      {view()}
+      {getView(appState)}
     </div>
   );
 }

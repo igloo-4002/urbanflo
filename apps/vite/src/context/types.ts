@@ -8,13 +8,26 @@ export const CanvasItemType = {
 } as const;
 
 export const ModalViewNames = {
-  ROAD_PROPERTY_EDITOR: "road-property-editor",
-  INTERSECTION_PROPERTY_EDITOR: "intersection-property-editor",
+  ROAD_PROPERTIES_EDITOR: "road-properties-editor",
+  INTERSECTION_PROPERTIES_EDITOR: "intersection-properties-editor",
+} as const;
+
+/**
+ * Usage of `RoadDirections` is as follows:
+ * If a direction is specified, then the direction of road travel would be towards that direction.
+ *
+ * For example, RoadDirections.UP would mean that the road is travelling from bottom to top.
+ */
+export const RoadDirections = {
+  UP: "up",
+  DOWN: "down",
+  LEFT: "left",
+  RIGHT: "right",
 } as const;
 
 export interface CanvasItem {
   info: {
-    type: typeof CanvasItemType;
+    type: string;
   };
   props: {
     alt: string;
@@ -26,13 +39,17 @@ export interface CanvasItem {
     offsetX: number;
     offsetY: number;
   };
+  speedLimit?: number;
+  lanes?: number;
+  length?: number;
+  direction?: string;
 }
 
 export interface Road extends CanvasItem {
   speedLimit: number;
   lanes: number;
   length: number;
-  direction: "horizontal" | "vertical";
+  direction: string;
 }
 
 export interface Car extends CanvasItem {
@@ -50,6 +67,8 @@ export type AppState = {
   };
   canvasState: {
     canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
+    selectedCanvasItem: CanvasItem | null;
+    isPlaying: boolean;
   };
   projectState: {
     isSaved: boolean;

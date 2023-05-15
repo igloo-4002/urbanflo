@@ -1,16 +1,41 @@
 import type Konva from "konva";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Image, Layer, Stage } from "react-konva";
 
 import carImage from "../assets/car.png";
-import roadImage from "../assets/road.png";
+
+import roadImageHorizontal from "../assets/roadHorizontal.png";
+import roadImageVertical from "../assets/roadVertical.png";
+import AppStateContext from "../context/AppStateContext";
+import { ModalViewNames } from "../context/types";
+import { openSidebar } from "../context/utils/modal";
+
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
+  const { appState, setAppState } = useContext(AppStateContext);
   const carRef = useRef<Konva.Image>(null);
   const keysPressed = useRef<{ [key: string]: boolean }>({});
 
-  const [road, setRoad] = useState<HTMLImageElement | null>(null);
+
+  const [roadHorizontal, setRoadHorizontal] = useState<HTMLImageElement | null>(
+    null,
+  );
+  const [roadVertical, setRoadVertical] = useState<HTMLImageElement | null>(
+    null,
+  );
+
+  function updateSelectedItem(index: number): void {
+    if (index >= 0 && index < appState.canvasState.canvasItems.length) {
+      openSidebar(
+        appState,
+        setAppState,
+        ModalViewNames.ROAD_PROPERTIES_EDITOR,
+        appState.canvasState.canvasItems[index],
+      );
+    }
+  }
+
   const roadRef = useRef<Konva.Image>(null);
 
   useEffect(() => {
@@ -24,12 +49,23 @@ export default function Canvas() {
   }, []);
 
   useEffect(() => {
-    const image = new window.Image();
-    image.src = roadImage;
-    image.width = 250;
-    image.height = 100;
-    image.onload = () => {
-      setRoad(image);
+
+    const imageHorizontal = new window.Image();
+    imageHorizontal.src = roadImageHorizontal;
+    imageHorizontal.width = 250;
+    imageHorizontal.height = 100;
+    imageHorizontal.onload = () => {
+      setRoadHorizontal(imageHorizontal);
+    };
+  }, []);
+
+  useEffect(() => {
+    const imageVertical = new window.Image();
+    imageVertical.src = roadImageVertical;
+    imageVertical.width = 100;
+    imageVertical.height = 250;
+    imageVertical.onload = () => {
+      setRoadVertical(imageVertical);
     };
   }, []);
 
@@ -65,17 +101,23 @@ export default function Canvas() {
         skipTransform: true,
         skipShadow: true,
       });
-      roadBounds1.x = 300;
-      roadBounds1.y = 145;
+
+      roadBounds1.width = 250;
+      roadBounds1.height = 100;
+      roadBounds1.x = 500;
+      roadBounds1.y = 500;
 
       const roadBounds2 = roadRef.current.getClientRect({
         skipTransform: true,
         skipShadow: true,
       });
-      roadBounds2.x = 300;
-      roadBounds2.y = 300;
 
-      if (keysPressed.current["ArrowUp"]) {
+      roadBounds2.width = 100;
+      roadBounds2.height = 250;
+      roadBounds2.x = 420;
+      roadBounds2.y = 420;
+
+      if (keysPressed.current["ArrowUp"] || appState.canvasState.isPlaying) {
         const angle = carRef.current.rotation() * (Math.PI / 180);
         const newPosition = {
           x: carRef.current.x() + step * Math.sin(angle),
@@ -145,42 +187,60 @@ export default function Canvas() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [appState]);
 
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-        {road && (
-          <Image
-            alt="A road"
-            ref={roadRef}
-            image={road}
-            x={300}
-            y={145}
-            draggable
-            offsetX={road.width / 2}
-            offsetY={road.height / 2}
-          />
-        )}
-        {road && (
-          <Image
-            alt="A road"
-            ref={roadRef}
-            image={road}
-            x={300}
-            y={300}
-            draggable
-            offsetX={road.width / 2}
-            offsetY={road.height / 2}
-          />
-        )}
+
+        {appState.canvasState.canvasItems.map((item, index) => {
+          if (
+            item.info.type === "road" &&
+            roadHorizontal &&
+            item.direction === "left"
+          ) {
+            return (
+              <Image
+                alt={"road"}
+                key={index}
+                image={roadHorizontal}
+                x={item.props.x}
+                y={item.props.y}
+                draggable
+                offsetX={item.props.offsetX}
+                offsetY={item.props.offsetY}
+                onClick={() => updateSelectedItem(index)}
+              />
+            );
+          } else if (
+            item.info.type === "road" &&
+            item.direction === "up" &&
+            roadVertical
+          ) {
+            return (
+              <Image
+                alt={"road"}
+                key={index}
+                ref={roadRef}
+                image={roadVertical}
+                x={item.props.x}
+                y={item.props.y}
+                draggable
+                offsetX={item.props.offsetX}
+                offsetY={item.props.offsetY}
+                onClick={() => updateSelectedItem(index)}
+              />
+            );
+          }
+          return null;
+        })}
         {car && (
           <Image
             alt="A car"
             ref={carRef}
             image={car}
-            x={300}
-            y={300}
+            x={500}
+            y={750}
             draggable
             offsetX={car.width / 2}
             offsetY={car.height / 2}
