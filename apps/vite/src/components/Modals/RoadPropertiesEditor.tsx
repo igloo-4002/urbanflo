@@ -38,13 +38,12 @@ export default function RoadPropertiesEditor(props: RoadPropertiesEditorProps) {
       ...updatedProperties,
     };
 
-    const updatedCanvasItems: CanvasItem[] =
-      appState.canvasState.canvasItems.map((item) => {
-        if (item.id === appState.canvasState.selectedCanvasItem?.id) {
-          return updatedRoad;
-        }
-        return item;
-      });
+    const updatedCanvasItems = appState.canvasState.canvasItems.map((item) => {
+      if (item.id === appState.canvasState.selectedCanvasItem?.id) {
+        return updatedRoad;
+      }
+      return item;
+    });
 
     setAppState({
       ...appState,
