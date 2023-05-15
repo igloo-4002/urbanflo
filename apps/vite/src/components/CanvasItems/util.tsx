@@ -49,4 +49,30 @@ export function renderCanvasItems(canvasItems: CanvasItemTypes[]) {
   console.log(cars);
   console.log(roads);
   console.log(intersections);
+
+  return (
+    <>
+      {cars.map((car: CanvasItemRenderElement<Car>) => {
+        const currentCar: Car = canvasItems[car.canvasItemsIndex] as Car;
+
+        return (
+          <CarComponent
+            key={car.canvasItemsIndex}
+            carFields={{
+              speed: currentCar.speed,
+              direction: currentCar.direction,
+            }}
+            canvasProps={{
+              index: car.canvasItemsIndex,
+              x: car.element.props.x,
+              y: car.element.props.y,
+              draggable: car.element.props.draggable,
+              offsetX: car.element.props.offsetX,
+              offsetY: car.element.props.offsetY,
+            }}
+          ></CarComponent>
+        );
+      })}
+    </>
+  );
 }
