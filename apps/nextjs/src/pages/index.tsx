@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import { Dialog } from "@headlessui/react";
-
 import {
   CloudArrowUpIcon,
   LockClosedIcon,
@@ -10,6 +7,9 @@ import {
 import Header from "~/components/Header";
 import CanvasImg from "../../public/canvas.png";
 import TrafficImg from "../../public/traffic.jpeg";
+
+// TODO: a better way to do this based on whether it's local or on vercel
+const linkToCanvasPage = "https://dev.canvas.urbanflo.app";
 
 const features = [
   {
@@ -74,13 +74,13 @@ export default function Example() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
-                  href="#"
+                  href={linkToCanvasPage}
                   className="rounded-md bg-orange-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                 >
                   Get started
                 </a>
                 <a
-                  href="#"
+                  href="#features"
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
                   Learn more <span aria-hidden="true">→</span>
@@ -103,7 +103,7 @@ export default function Example() {
         </div>
       </div>
       {/* Features section */}
-      <div className="overflow-hidden bg-white py-24 sm:py-32">
+      <div className="overflow-hidden bg-white py-24 sm:py-32" id="features">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             <div className="lg:pr-8 lg:pt-4">
@@ -177,13 +177,13 @@ export default function Example() {
               </h2>
               <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                 <a
-                  href="#"
+                  href={linkToCanvasPage}
                   className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   Get started
                 </a>
                 <a
-                  href="#"
+                  href="#features"
                   className="text-sm font-semibold leading-6 text-white"
                 >
                   Learn more <span aria-hidden="true">→</span>
