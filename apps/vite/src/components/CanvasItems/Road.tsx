@@ -3,7 +3,7 @@ import { Image } from "react-konva";
 
 import roadImageHorizontal from "../../assets/roadHorizontal.png";
 import roadImageVertical from "../../assets/roadVertical.png";
-import { type RoadFields } from "../../context/types";
+import { RoadDirections, type RoadFields } from "../../context/types";
 import { type CanvasItemProps } from "./types";
 
 export interface RoadProps {
@@ -17,18 +17,25 @@ export function Road(props: RoadProps) {
 
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
+  const isHorizontal =
+    roadFields.direction === RoadDirections.LEFT ||
+    roadFields.direction === RoadDirections.RIGHT;
+
+  const horizontalWidth = 250;
+  const horizontalHeight = 100;
+
+  const verticalWidth = horizontalHeight;
+  const verticalHeight = horizontalWidth;
+
   useEffect(() => {
     const img = new window.Image();
-    img.src =
-      roadFields.direction === "horizontal"
-        ? roadImageHorizontal
-        : roadImageVertical;
-    img.width = 250;
-    img.height = 100;
+    img.src = isHorizontal ? roadImageHorizontal : roadImageVertical;
+    img.width = isHorizontal ? horizontalWidth : verticalWidth;
+    img.height = isHorizontal ? horizontalHeight : verticalHeight;
     img.onload = () => {
       setImage(img);
     };
-  }, [roadFields.direction]);
+  }, [isHorizontal, roadFields.direction, verticalHeight, verticalWidth]);
 
   return image ? (
     <Image
