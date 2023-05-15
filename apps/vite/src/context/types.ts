@@ -42,21 +42,27 @@ export interface CanvasItem {
   };
 }
 
-export interface Road extends CanvasItem {
+export interface RoadFields {
   speedLimit: number;
   lanes: number;
   length: number;
   direction: string;
 }
 
-export interface Car extends CanvasItem {
+export type Road = CanvasItem & RoadFields;
+
+export interface CarFields {
   speed: number;
   direction: "horizontal" | "vertical";
 }
 
-export interface Intersection extends CanvasItem {
+export type Car = CanvasItem & CarFields;
+
+export interface IntersectionFields {
   connectingRoads: number[];
 }
+
+export type Intersection = IntersectionFields & CanvasItem;
 
 export type CanvasItemTypes = Road | Car | Intersection;
 
@@ -65,7 +71,7 @@ export type AppState = {
     name: string; // Normal Project settings, e.g. name, description, etc.
   };
   canvasState: {
-    canvasItems: CanvasItem[]; // Roads, Cars, traffic lights, etc.
+    canvasItems: CanvasItemTypes[]; // Roads, Cars, traffic lights, etc.
     selectedCanvasItem: CanvasItemTypes | null;
     isPlaying: boolean;
   };
