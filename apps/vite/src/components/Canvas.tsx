@@ -8,6 +8,7 @@ import roadImageVertical from "../assets/roadVertical.png";
 import AppStateContext from "../context/AppStateContext";
 import { ModalViewNames } from "../context/types";
 import { openSidebar } from "../context/utils/modal";
+import { renderCanvasItems } from "./CanvasItems/util";
 
 export default function Canvas() {
   const [car, setCar] = useState<HTMLImageElement | null>(null);
@@ -182,7 +183,8 @@ export default function Canvas() {
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-        {appState.canvasState.canvasItems.map((item, index) => {
+        {renderCanvasItems(appState.canvasState.canvasItems)}
+        {/* {appState.canvasState.canvasItems.map((item, index) => {
           if (
             item.info.type === "road" &&
             roadHorizontal &&
@@ -234,7 +236,7 @@ export default function Canvas() {
             offsetX={car.width / 2}
             offsetY={car.height / 2}
           />
-        )}
+        )} */}
       </Layer>
     </Stage>
   );
