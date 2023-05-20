@@ -58,6 +58,7 @@ app.get("/start-simulation", (_req: Request, res: Response) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   const traciProcess = spawn(
     `/usr/local/bin/python3 ${process.cwd()}/src/get_vehicle_positions.py`,
