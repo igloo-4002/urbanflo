@@ -54,16 +54,18 @@ app.get("/simulation", (_req: Request, res: Response) => {
   });
 });
 
-app.get("/traci", (_req: Request, res: Response) => {
+app.get("/start-simulation", (_req: Request, res: Response) => {
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+
   const traciProcess = spawn(
     `/usr/local/bin/python3 ${process.cwd()}/src/get_vehicle_positions.py`,
     { shell: true },
   );
 
-  let traciData = "";
   traciProcess.stdout.on("data", (data) => {
-    traciData += data;
-    console.log(`from traci stdout: ${data}`);
+    res.write(`data: ${data}\n\n`);
   });
 
   traciProcess.stderr.on("data", (data) => {
@@ -71,8 +73,8 @@ app.get("/traci", (_req: Request, res: Response) => {
   });
 
   traciProcess.on("close", (code) => {
-    console.log(`child process exited with code ${code}`);
-    res.send({ data: traciData });
+    console.log(`python process exited with code ${code}`);
+    res.end();
   });
 });
 
