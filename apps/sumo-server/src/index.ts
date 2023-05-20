@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { exec, spawn } from "child_process";
 import express, { type Request, type Response } from "express";
 import multer from "multer";
 
@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
 
 const uploads = multer({ storage });
 
-const command = `${process.cwd()}/sumo-files/sumo/bin/sumo -c ${process.cwd()}/sumo-files/demo/demo.sumocfg`;
+const command = `/usr/local/bin/sumo -c ${process.cwd()}/sumo-files/demo/demo.sumocfg`;
+
 app.post(
   "/simulation",
   uploads.fields([
@@ -35,6 +36,45 @@ app.post(
     });
   },
 );
+
+app.get("/simulation", (_req: Request, res: Response) => {
+  const sumoProcess = spawn(command, { shell: true });
+
+  sumoProcess.stdout.on("data", (data) => {
+    console.log(`from sumo stdout: ${data}`);
+  });
+
+  sumoProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  sumoProcess.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    res.redirect("/traci");
+  });
+});
+
+app.get("/traci", (_req: Request, res: Response) => {
+  const traciProcess = spawn(
+    `/usr/local/bin/python3 ${process.cwd()}/src/get_vehicle_positions.py`,
+    { shell: true },
+  );
+
+  let traciData = "";
+  traciProcess.stdout.on("data", (data) => {
+    traciData += data;
+    console.log(`from traci stdout: ${data}`);
+  });
+
+  traciProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  traciProcess.on("close", (code) => {
+    console.log(`child process exited with code ${code}`);
+    res.send({ data: traciData });
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
