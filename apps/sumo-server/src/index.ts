@@ -2,6 +2,7 @@ import { exec, spawn } from "child_process";
 import express, { type Request, type Response } from "express";
 import multer from "multer";
 
+let count = 0;
 const app = express();
 const port = process.env.SUMO_PORT || 3000;
 
@@ -21,7 +22,7 @@ const command = `/usr/local/bin/sumo -c ${process.cwd()}/sumo-files/demo/demo.su
 app.post(
   "/simulation",
   uploads.fields([
-    { name: "network", maxCount: 1 },
+    { name: "network", maxCount: 1 }, // this should be three files, nod.xml, edg.xml. con.xml
     { name: "routes", maxCount: 1 },
   ]),
   (_req: Request, res: Response) => {
@@ -37,23 +38,6 @@ app.post(
   },
 );
 
-app.get("/simulation", (_req: Request, res: Response) => {
-  const sumoProcess = spawn(command, { shell: true });
-
-  sumoProcess.stdout.on("data", (data) => {
-    console.log(`from sumo stdout: ${data}`);
-  });
-
-  sumoProcess.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
-  });
-
-  sumoProcess.on("close", (code) => {
-    console.log(`child process exited with code ${code}`);
-    res.redirect("/traci");
-  });
-});
-
 app.get("/start-simulation", (_req: Request, res: Response) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
@@ -65,7 +49,13 @@ app.get("/start-simulation", (_req: Request, res: Response) => {
     { shell: true },
   );
 
+  _req.on("close", () => {
+    traciProcess.kill("SIGINT");
+  });
+
   traciProcess.stdout.on("data", (data) => {
+    count++;
+    console.log("server ran", count, "times");
     res.write(`data: ${data}\n\n`);
   });
 

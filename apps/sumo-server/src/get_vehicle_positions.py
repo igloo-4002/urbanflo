@@ -1,6 +1,12 @@
-import traci.constants as tc
 import traci
+import signal
+import sys
 
+def signal_handler(sig, frame):
+    traci.close()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 sumoCmd = ["/usr/local/bin/sumo", "-c", "/Users/vishaljakhar/Desktop/urban-planning-app/apps/sumo-server/sumo-files/demo/demo.sumocfg"]
 traci.start(sumoCmd)
@@ -10,17 +16,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 
     active_vehicles = traci.vehicle.getIDList()
-
+   
     for vehicle_id in active_vehicles:
-        position = traci.vehicle.getPosition(vehicle_id)
-        print(f"Vehicle {vehicle_id} is at position {position}")
+        x, y = traci.vehicle.getPosition(vehicle_id)
+        print(f"{vehicle_id},{x},{y}")
 
-# traci.close()
-# traci.vehicle.subscribe("0", (tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION))
-# positions = []
-# for step in range(500):
-#     traci.simulationStep()
-#     positions.append(traci.vehicle.getPosition("0"))
-
-# print(positions)
 traci.close()

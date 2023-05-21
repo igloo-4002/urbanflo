@@ -1,23 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
 
 export default function FloatingPlayPause() {
   const { appState, setAppState } = useContext(AppStateContext);
-
-  useEffect(() => {
-    if (appState.canvasState.isPlaying) {
-      const eventSource = new EventSource(
-        "http://localhost:3000/start-simulation",
-      );
-
-      eventSource.onmessage = (event) => {
-        console.log(event.data);
-      };
-
-      return () => eventSource.close();
-    }
-  }, [appState.canvasState.isPlaying]);
 
   function playPause() {
     setAppState({
