@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on Wed 12 Dec 2018 09:49:38 PM CST by Netedit Version 0.32.0
-<?xml version="1.0" encoding="UTF-8"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <output>
-        <output-file value="/home/avcourt/Documents/sumo-projects/demo/demo.net.xml"/>
-    </output>
-
-    <processing>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-    </processing>
-
-</configuration>
--->
-
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
-
     <location netOffset="0.00,0.00" convBoundary="-106.04,-48.37,143.48,139.06" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ10_0" function="internal">

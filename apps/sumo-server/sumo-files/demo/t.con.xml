@@ -1,0 +1,4 @@
+<connections>
+    <connection from="east_center" to="center_south" fromLane="0" toLane="0"/>
+    <connection from="east_center" to="center_north" fromLane="1" toLane="1"/>
+</connections>

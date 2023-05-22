@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-20 19:20:03 by Eclipse SUMO netconvert Version 1.17.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="/Users/vishaljakhar/Desktop/urban-planning-app/apps/sumo-server/sumo-files/demo/t.nod.xml"/>
+        <edge-files value="/Users/vishaljakhar/Desktop/urban-planning-app/apps/sumo-server/sumo-files/demo/t.edg.xml"/>
+        <connection-files value="/Users/vishaljakhar/Desktop/urban-planning-app/apps/sumo-server/sumo-files/demo/t.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="t.net.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,100.00" convBoundary="0.00,0.00,100.00,200.00" origBoundary="0.00,-100.00,100.00,100.00" projParameter="!"/>
+
+    <edge id=":center_0" function="internal">
+        <lane id=":center_0_0" index="0" speed="9.32" length="19.63" shape="10.40,104.80 3.75,104.25 -1.00,102.60 -3.85,99.85 -4.80,96.00"/>
+    </edge>
+    <edge id=":center_1" function="internal">
+        <lane id=":center_1_0" index="0" speed="8.00" length="14.19" shape="10.40,101.60 6.55,102.15 3.80,103.80 2.15,106.55 1.60,110.40"/>
+    </edge>
+
+    <edge id="center_north" from="center" to="north" priority="-1">
+        <lane id="center_north_0" index="0" speed="13.89" length="89.60" shape="4.80,110.40 4.80,200.00"/>
+        <lane id="center_north_1" index="1" speed="13.89" length="89.60" shape="1.60,110.40 1.60,200.00"/>
+    </edge>
+    <edge id="center_south" from="center" to="south" priority="-1">
+        <lane id="center_south_0" index="0" speed="13.89" length="96.00" shape="-4.80,96.00 -4.80,0.00"/>
+        <lane id="center_south_1" index="1" speed="13.89" length="96.00" shape="-1.60,96.00 -1.60,0.00"/>
+    </edge>
+    <edge id="east_center" from="east" to="center" priority="-1">
+        <lane id="east_center_0" index="0" speed="13.89" length="89.60" shape="100.00,104.80 10.40,104.80"/>
+        <lane id="east_center_1" index="1" speed="13.89" length="89.60" shape="100.00,101.60 10.40,101.60"/>
+    </edge>
+
+    <tlLogic id="center" type="static" programID="0" offset="0">
+        <phase duration="82" state="Gg"/>
+        <phase duration="3"  state="yy"/>
+        <phase duration="5"  state="rr"/>
+    </tlLogic>
+
+    <junction id="center" type="traffic_light" x="0.00" y="100.00" incLanes="east_center_0 east_center_1" intLanes=":center_0_0 :center_1_0" shape="0.00,110.40 6.40,110.40 6.84,108.18 7.40,107.40 8.18,106.84 9.18,106.51 10.40,106.40 10.40,100.00 7.22,99.89 4.62,99.56 2.60,99.00 1.16,98.22 0.29,97.22 0.00,96.00 -6.40,96.00 -5.93,99.26 -4.74,101.48 -1.66,104.92 -0.47,107.14">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+    </junction>
+    <junction id="east" type="dead_end" x="100.00" y="100.00" incLanes="" intLanes="" shape="100.00,100.00 100.00,106.40"/>
+    <junction id="north" type="dead_end" x="0.00" y="200.00" incLanes="center_north_0 center_north_1" intLanes="" shape="6.40,200.00 0.00,200.00"/>
+    <junction id="south" type="dead_end" x="0.00" y="0.00" incLanes="center_south_0 center_south_1" intLanes="" shape="-6.40,0.00 0.00,0.00"/>
+
+    <connection from="east_center" to="center_south" fromLane="0" toLane="0" via=":center_0_0" tl="center" linkIndex="0" dir="l" state="O"/>
+    <connection from="east_center" to="center_north" fromLane="1" toLane="1" via=":center_1_0" tl="center" linkIndex="1" dir="r" state="o"/>
+
+    <connection from=":center_0" to="center_south" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":center_1" to="center_north" fromLane="0" toLane="1" dir="r" state="M"/>
+
+</net>
