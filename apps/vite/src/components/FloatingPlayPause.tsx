@@ -12,6 +12,8 @@ export default function FloatingPlayPause() {
   const nodes: string[] = [];
   const edges: string[] = [];
   const nodIDs: string[] = [];
+  const edgeIDs: string[] = [];
+  const connections: string[] = [];
   console.log(appState.canvasState.canvasItems);
 
   function isRoad(item: CanvasItemTypes): item is Road {
@@ -83,6 +85,7 @@ export default function FloatingPlayPause() {
 
     for (let i = 1; i < a; i++) {
       const id = nodIDs[0] + "---" + nodIDs[i];
+      edgeIDs.push(id);
       const from = nodIDs[0];
       // How to decide the to?
       const to = nodIDs[i];
@@ -127,19 +130,17 @@ export default function FloatingPlayPause() {
   }
 
   function downloadConFile() {
-    const a = appState.canvasState.canvasItems.length;
-    const connections = [];
+    console.log(edges);
+    const a = edges.length;
 
-    for (let i = 0; i < a; i++) {
-      if (appState.canvasState.canvasItems[i]?.info?.type === "road") {
-        const from = appState.canvasState.canvasItems[i].id;
-        const to = appState.canvasState.canvasItems[i].id;
-        const fromLane = 0;
-        const toLane = 0;
+    for (let i = 1; i < a; i++) {
+      const from = edgeIDs[0];
+      const to = edgeIDs[i];
+      const fromLane = 0;
+      const toLane = 0;
 
-        const connection = `<connection from="${from}" to="${to}" fromLane="${fromLane}" toLane="${toLane}" />`;
-        connections.push(connection);
-      }
+      const connection = `<connection from="${from}" to="${to}" fromLane="${fromLane}" toLane="${toLane}" />`;
+      connections.push(connection);
     }
 
     const xmlContent = `<connections>
@@ -168,21 +169,25 @@ export default function FloatingPlayPause() {
   }
 
   function downloadRouFile() {
-    const a = appState.canvasState.canvasItems.length;
+    console.log(connections);
     const routes = [];
+    const flows = [];
 
-    for (let i = 0; i < a; i++) {
-      if (appState.canvasState.canvasItems[i]?.info?.type === "road") {
-        const id = appState.canvasState.canvasItems[i].id;
-        const edges = "hello";
+    const a = edges.length;
 
-        const route = `<route id="${id}" edges="${edges}" />`;
-        routes.push(route);
-      }
+    for (let i = 1; i < a; i++) {
+      const edgesFill = edgeIDs[0] + " " + edgeIDs[i];
+
+      const route = `<route id="${edgesFill}" edges="${edgesFill}" />`;
+      routes.push(route);
+      const flow = `<flow id="${edgesFill}" type="car" route="${edgesFill}" begin="0" end="86400" period="5" />`;
+      flows.push(flow);
     }
 
     const xmlContent = `<routes>
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="70"/>
       ${routes.join("\n")}
+      ${flows.join("\n")}
       </routes>`;
 
     const parser = new DOMParser();
