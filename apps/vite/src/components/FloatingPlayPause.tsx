@@ -1,31 +1,54 @@
 import { useContext } from "react";
 
 import AppStateContext from "../context/AppStateContext";
+import {
+  CanvasItemType,
+  type CanvasItemTypes,
+  type Road,
+} from "../context/types";
 
 export default function FloatingPlayPause() {
   const { appState, setAppState } = useContext(AppStateContext);
+  const nodes: string[] = [];
+  const edges: string[] = [];
+  const nodIDs: string[] = [];
+  console.log(appState.canvasState.canvasItems);
+
+  function isRoad(item: CanvasItemTypes): item is Road {
+    return item.info.type === CanvasItemType.ROAD;
+  }
 
   function downloadNodFile() {
     const a = appState.canvasState.canvasItems.length;
-    const nodes = [];
 
     for (let i = 0; i < a; i++) {
-      const nodIDs = [];
-      if (appState.canvasState.canvasItems[i]?.info?.type === "road") {
+      if (isRoad(appState.canvasState.canvasItems[i])) {
         const id = appState.canvasState.canvasItems[i].id;
         const x = appState.canvasState.canvasItems[i].props.x;
         const y = appState.canvasState.canvasItems[i].props.y;
 
         const node1 = `<node id="${id}" x="${x}" y="${y}" type="priority" />`;
         nodes.push(node1);
+        let node2 = `<node id="${id}" x="${x}" y="${y}" type="priority" />`;
         //If its direction is up - add the length to y
-        const node2 = `<node id="${
-          id + 1
-        }" x="${x}" y="${y}" type="priority" />`;
+        const newID = id + "+2";
+        if (
+          appState.canvasState.canvasItems[i].direction === "up" ||
+          appState.canvasState.canvasItems[i].direction === "down"
+        ) {
+          node2 = `<node id="${newID}" x="${x}" y="${
+            y + appState.canvasState.canvasItems[i].length
+          }" type="priority" />`;
+        } else {
+          node2 = `<node id="${newID}" x="${
+            x + appState.canvasState.canvasItems[i].length
+          }" y="${y}" type="priority" />`;
+        }
+
         //If its direction is side ways - add the length to x
         nodes.push(node2);
         nodIDs.push(id);
-        nodIDs.push(id + 1);
+        nodIDs.push(newID);
       }
     }
 
@@ -55,21 +78,27 @@ export default function FloatingPlayPause() {
   }
 
   function downloadEdgFile() {
-    const a = appState.canvasState.canvasItems.length;
-    const edges = [];
+    console.log(nodes);
+    const a = nodes.length;
 
-    for (let i = 0; i < a + 1; i++) {
-      if (appState.canvasState.canvasItems[i]?.info?.type === "road") {
-        const id = appState.canvasState.canvasItems[i].id;
-        const from = appState.canvasState.canvasItems[i].id;
-        // How to decide the to?
-        const to = appState.canvasState.canvasItems[i].id;
-        const numLanes = 0;
-        const speed = 0;
-        //nodIds
-        const edge = `<edge id="${id}" from="${from}" to="${to}" numLanes="${numLanes}" speed="${speed}" />`;
-        edges.push(edge);
+    for (let i = 1; i < a; i++) {
+      const id = nodIDs[0] + "---" + nodIDs[i];
+      const from = nodIDs[0];
+      // How to decide the to?
+      const to = nodIDs[i];
+      let numLanes = 0;
+      let speed = 0;
+      if (i === 1) {
+        numLanes = appState.canvasState.canvasItems[0].lanes;
+        speed = appState.canvasState.canvasItems[0].speedLimit;
+      } else {
+        numLanes = appState.canvasState.canvasItems[1].lanes;
+        speed = appState.canvasState.canvasItems[1].speedLimit;
       }
+
+      //nodIds
+      const edge = `<edge id="${id}" from="${from}" to="${to}" numLanes="${numLanes}" speed="${speed}" />`;
+      edges.push(edge);
     }
 
     const xmlContent = `<edges>
