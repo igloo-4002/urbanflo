@@ -1,6 +1,0 @@
-<configuration>
-    <input>
-        <net-file value="t.net.xml"/>
-        <route-files value="t.rou.xml"/>
-    </input>
-</configuration>

@@ -39,7 +39,6 @@
     "NODE_ENV",
     "SKIP_ENV_VALIDATION",
     "VERCEL",
-    "VERCEL_URL",
-    "SUMO_PORT"
+    "VERCEL_URL"
   ]
 }
