@@ -7,7 +7,7 @@
 /** @type {import("next").NextConfig} */
 const config = {
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@igloo/api", "@igloo/auth", "@igloo/db"],
+  transpilePackages: ["@igloo/api", "@igloo/db"],
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
