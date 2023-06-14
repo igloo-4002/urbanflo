@@ -1,5 +1,0 @@
-<edges>
-    <edge id="center_south" from="center" to="south" numLanes="2" speed="13.89" />
-    <edge id="center_north" from="center" to="north" numLanes="2" speed="13.89" />
-    <edge id="east_center" from="east" to="center" numLanes="2" speed="13.89" />
-</edges>
