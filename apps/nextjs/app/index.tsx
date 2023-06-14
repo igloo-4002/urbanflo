@@ -3,8 +3,8 @@ import {
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
+import Header from "app/components/Header";
 
-import Header from "~/components/Header";
 import CanvasImg from "../../public/canvas.png";
 import TrafficImg from "../../public/traffic.jpeg";
 
