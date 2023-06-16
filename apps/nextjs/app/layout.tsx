@@ -1,18 +1,15 @@
-import "../styles/globals.css";
-import { api } from "utils/api";
+import { PropsWithChildren } from "react";
 
-function RootLayout({
+import "./globals.css";
+
+export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: PropsWithChildren) {
   return (
     <html lang="en">
       <body>{children}</body>
     </html>
   );
 }
-
-export default api.withTRPC(RootLayout);
