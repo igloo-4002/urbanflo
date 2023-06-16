@@ -1,6 +1,6 @@
 /** @type {import("tailwindcss").Config} */
 const config = {
-  content: ["./src/**/*.tsx"],
+  content: ["./app/**/*.tsx"],
   // @ts-ignore
   presets: [require("@igloo/tailwind-config")],
 };
