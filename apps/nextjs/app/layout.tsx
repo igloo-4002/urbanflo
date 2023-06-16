@@ -1,6 +1,13 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { PropsWithChildren } from "react";
 
 import "./globals.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "UrbanFlo",
+  description: "A modern traffic planner",
+};
 
 export default function RootLayout({
   // Layouts must accept a children prop.
@@ -8,8 +15,10 @@ export default function RootLayout({
   children,
 }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
