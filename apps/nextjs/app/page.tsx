@@ -3,10 +3,10 @@ import {
   LockClosedIcon,
   ServerIcon,
 } from "@heroicons/react/20/solid";
+import Header from "app/components/Header";
 
-import Header from "~/components/Header";
-import CanvasImg from "../../public/canvas.png";
-import TrafficImg from "../../public/traffic.jpeg";
+import CanvasImg from "../public/canvas.png";
+import TrafficImg from "../public/traffic.jpeg";
 
 // TODO: a better way to do this based on whether it's local or on vercel
 const linkToCanvasPage = "https://dev.canvas.urbanflo.app";
@@ -36,7 +36,6 @@ export default function Example() {
   return (
     <div>
       <div className="bg-white">
-        {/* Header */}
         <Header />
 
         {/* Headline section */}

@@ -12,16 +12,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.21.1",
     "@igloo/api": "*",
-    "@igloo/auth": "*",
     "@igloo/db": "*",
     "@tanstack/react-query": "^4.24.10",
     "@trpc/client": "^10.14.0",
     "@trpc/next": "^10.14.0",
     "@trpc/react-query": "^10.14.0",
     "@trpc/server": "^10.14.0",
-    "next": "^13.2.3",
-    "next-auth": "^4.20.1",
+    "next": "^13.4.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "1.9.1",

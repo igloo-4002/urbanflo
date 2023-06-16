@@ -2,12 +2,12 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds and Linting.
  */
-!process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
+!process.env.SKIP_ENV_VALIDATION && (await import("./env.mjs"));
 
 /** @type {import("next").NextConfig} */
 const config = {
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@igloo/api", "@igloo/auth", "@igloo/db"],
+  transpilePackages: ["@igloo/api", "@igloo/db"],
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
