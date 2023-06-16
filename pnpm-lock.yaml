@@ -194,29 +194,26 @@ importers:
   packages/api:
     dependencies:
       '@igloo/db':
-        specifier: ^0.1.0
+        specifier: '*'
         version: link:../db
       '@trpc/client':
-        specifier: ^10.14.0
+        specifier: ^10.1.0
         version: 10.14.0(@trpc/server@10.14.0)
       '@trpc/server':
-        specifier: ^10.14.0
+        specifier: ^10.1.0
         version: 10.14.0
       superjson:
-        specifier: 1.9.1
+        specifier: ^1.9.1
         version: 1.9.1
       zod:
-        specifier: ^3.21.4
+        specifier: ^3.18.0
         version: 3.21.4
     devDependencies:
-      '@igloo/eslint-config':
-        specifier: '*'
-        version: link:../config/eslint
       eslint:
-        specifier: ^8.34.0
+        specifier: ^8.28.0
         version: 8.34.0
       typescript:
-        specifier: ^4.9.5
+        specifier: ^4.9.3
         version: 4.9.5
 
   packages/config/eslint:
