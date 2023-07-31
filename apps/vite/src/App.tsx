@@ -6,7 +6,6 @@ import FloatingSideBar from "./components/FloatingSidebar";
 import AppStateContext from "./context/AppStateContext";
 import { getDefaultAppState } from "./context/defaults";
 import { type AppState } from "./context/types";
-import { TRPCProvider } from "./utils/api";
 
 let count = 0;
 
@@ -168,19 +167,17 @@ function App() {
   }, [appState.canvasState.isPlaying]);
 
   return (
-    <TRPCProvider>
-      <AppStateContext.Provider value={{ appState, setAppState }}>
-        <FloatingSideBar />
-        <FloatingPlayPause />
-        <div className="flex h-screen w-screen items-center justify-center bg-white">
-          <Canvas
-            x={coordinates.x}
-            y={coordinates.y}
-            color={vehToColor.current[vehId.current]}
-          />
-        </div>
-      </AppStateContext.Provider>
-    </TRPCProvider>
+    <AppStateContext.Provider value={{ appState, setAppState }}>
+      <FloatingSideBar />
+      <FloatingPlayPause />
+      <div className="flex h-screen w-screen items-center justify-center bg-white">
+        <Canvas
+          x={coordinates.x}
+          y={coordinates.y}
+          color={vehToColor.current[vehId.current]}
+        />
+      </div>
+    </AppStateContext.Provider>
   );
 }
 
