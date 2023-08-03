@@ -100,7 +100,7 @@ importers:
       superjson: 1.9.1
       tailwindcss: ^3.2.7
       typescript: ^4.9.5
-      vite: ^4.1.0
+      vite: ^4.2.3
     dependencies:
       '@tanstack/react-query': 4.28.0_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.18.0_@trpc+server@10.18.0
@@ -115,12 +115,12 @@ importers:
       '@igloo/tailwind-config': link:../../packages/config/tailwind
       '@types/react': 18.0.29
       '@types/react-dom': 18.0.11
-      '@vitejs/plugin-react': 3.1.0_vite@4.2.1
+      '@vitejs/plugin-react': 3.1.0_vite@4.2.3
       autoprefixer: 10.4.14_postcss@8.4.21
       postcss: 8.4.21
       tailwindcss: 3.2.7_postcss@8.4.21
       typescript: 4.9.5
-      vite: 4.2.1
+      vite: 4.2.3
 
   packages/api:
     specifiers:
@@ -1301,7 +1301,7 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: false
 
-  /@vitejs/plugin-react/3.1.0_vite@4.2.1:
+  /@vitejs/plugin-react/3.1.0_vite@4.2.3:
     resolution: {integrity: sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -1312,7 +1312,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.21.3
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.2.1
+      vite: 4.2.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4098,8 +4098,8 @@ packages:
       builtins: 1.0.3
     dev: false
 
-  /vite/4.2.1:
-    resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
+  /vite/4.2.3:
+    resolution: {integrity: sha512-kLU+m2q0Y434Y1kCy3TchefAdtFso0ILi0dLyFV8Us3InXTU11H/B5ZTqCKIQHzSKNxVG/yEx813EA9f1imQ9A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
