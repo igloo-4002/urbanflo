@@ -1,3 +1,11 @@
+# ⚠️ ABANDONED REPO ⚠️
+
+Please use the following repositories for up-to-date code:
+
+- Vite: <https://github.com/igloo-4002/urbanflo-vite>
+- NextJS: <https://github.com/igloo-4002/urbanflo-nextjs>
+- SUMO server: <https://github.com/igloo-4002/urbanflo-sumo-server>
+
 # FIT4002 Urban Planning App
 
 It uses [Turborepo](https://turborepo.org/) and [pnpm](https://pnpm.io) and contains:
